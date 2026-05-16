@@ -1,18 +1,21 @@
-import { useAuthStore } from "@/src/stores/auth-store";
+import { useMe } from "@/src/features/profile/profile-queries";
+import { Spinner } from "heroui-native";
 import { Image, Text, View } from "react-native";
 
 export default function Home() {
-  const user = useAuthStore((state) => state.user);
+  const { data, isLoading } = useMe();
+
+  if (isLoading) return <Spinner />;
 
   return (
     <View className="flex-1 items-center justify-center">
       <Text className="text-xl">Welcome</Text>
 
-      <Text>{user?.fullName}</Text>
+      <Text>{data?.fullName}</Text>
 
-      {user?.ImageUrl && (
+      {data?.ImageUrl && (
         <Image
-          source={{ uri: user.ImageUrl }}
+          source={{ uri: data.ImageUrl }}
           className="w-20 h-20 rounded-full mt-4"
         />
       )}
