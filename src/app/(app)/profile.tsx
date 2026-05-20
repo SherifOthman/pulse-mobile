@@ -14,76 +14,6 @@ import {
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-type MenuItem = {
-  icon: React.ComponentProps<typeof Ionicons>["name"];
-  label: string;
-  onPress: () => void;
-  danger?: boolean;
-};
-
-// RTL row: icon (right) → text → arrow (left)
-function RTLRow({
-  icon,
-  label,
-  onPress,
-  iconBg,
-  iconColor,
-  textColor,
-  muted,
-  showArrow = true,
-}: {
-  icon: React.ComponentProps<typeof Ionicons>["name"];
-  label: string;
-  onPress: () => void;
-  iconBg: string;
-  iconColor: string;
-  textColor?: string;
-  muted: string;
-  showArrow?: boolean;
-}) {
-  return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => ({
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 14,
-        opacity: pressed ? 0.7 : 1,
-      })}
-    >
-      {/* Arrow — far left */}
-      {showArrow && <Ionicons name="chevron-back" size={16} color={muted} />}
-
-      {/* Text — fills middle */}
-      <View style={{ flex: 1, marginHorizontal: 12 }}>
-        <Text
-          className="text-right"
-          type="body"
-          weight="medium"
-          style={textColor ? { color: textColor } : undefined}
-        >
-          {label}
-        </Text>
-      </View>
-
-      {/* Icon circle — far right */}
-      <View
-        style={{
-          width: 38,
-          height: 38,
-          borderRadius: 19,
-          backgroundColor: iconBg,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Ionicons name={icon} size={18} color={iconColor} />
-      </View>
-    </Pressable>
-  );
-}
-
 export default function Profile() {
   const insets = useSafeAreaInsets();
   const logout = useAuthStore((state) => state.logout);
@@ -151,13 +81,6 @@ export default function Profile() {
               {data?.fullName?.charAt(0) ?? "؟"}
             </Avatar.Fallback>
           </Avatar>
-          <Pressable
-            onPress={() => router.push("/(app)/edit-profile")}
-            className="absolute bottom-0 left-0 w-8 h-8 rounded-full bg-accent items-center justify-center"
-            style={{ elevation: 2 }}
-          >
-            <Ionicons name="pencil" size={14} color="white" />
-          </Pressable>
         </View>
 
         <Text.Heading type="h3" weight="bold" align="center" className="mt-4">
@@ -206,5 +129,75 @@ export default function Profile() {
         />
       </View>
     </ScrollView>
+  );
+}
+
+type MenuItem = {
+  icon: React.ComponentProps<typeof Ionicons>["name"];
+  label: string;
+  onPress: () => void;
+  danger?: boolean;
+};
+
+// RTL row: icon (right) → text → arrow (left)
+function RTLRow({
+  icon,
+  label,
+  onPress,
+  iconBg,
+  iconColor,
+  textColor,
+  muted,
+  showArrow = true,
+}: {
+  icon: React.ComponentProps<typeof Ionicons>["name"];
+  label: string;
+  onPress: () => void;
+  iconBg: string;
+  iconColor: string;
+  textColor?: string;
+  muted: string;
+  showArrow?: boolean;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => ({
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 16,
+        paddingVertical: 14,
+        opacity: pressed ? 0.7 : 1,
+      })}
+    >
+      {/* Arrow — far left */}
+      {showArrow && <Ionicons name="chevron-back" size={16} color={muted} />}
+
+      {/* Text — fills middle */}
+      <View style={{ flex: 1, marginHorizontal: 12 }}>
+        <Text
+          className="text-right"
+          type="body"
+          weight="medium"
+          style={textColor ? { color: textColor } : undefined}
+        >
+          {label}
+        </Text>
+      </View>
+
+      {/* Icon circle — far right */}
+      <View
+        style={{
+          width: 38,
+          height: 38,
+          borderRadius: 19,
+          backgroundColor: iconBg,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Ionicons name={icon} size={18} color={iconColor} />
+      </View>
+    </Pressable>
   );
 }

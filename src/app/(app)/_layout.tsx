@@ -45,7 +45,6 @@ export default function AppLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="categories"
         options={{
@@ -59,7 +58,6 @@ export default function AppLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="news"
         options={{
@@ -73,7 +71,6 @@ export default function AppLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="doctors"
         options={{
@@ -87,7 +84,6 @@ export default function AppLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="home"
         options={{
@@ -101,7 +97,6 @@ export default function AppLayout() {
           ),
         }}
       />
-
       {/* Hidden screens */}
       <Tabs.Screen name="settings" options={{ href: null }} />
       <Tabs.Screen name="edit-profile" options={{ href: null }} />

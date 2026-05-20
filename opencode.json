@@ -9,8 +9,8 @@
       }
     },
     "heroui-native": {
-      "type": "local",
-      "command": ["npx", "-y", "@heroui/native-mcp@latest"]
+      "command": "npx",
+      "args": ["-y", "@heroui/native-mcp@latest"]
     }
   }
 }

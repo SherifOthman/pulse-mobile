@@ -7,16 +7,20 @@ import {
   Text,
   useThemeColor,
 } from "heroui-native";
-import { Uniwind, useUniwind } from "uniwind";
 import { Pressable, ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { ZoomIn } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Uniwind, useUniwind } from "uniwind";
 
 export default function Settings() {
   const insets = useSafeAreaInsets();
   const { theme } = useUniwind();
   const isDark = theme === "dark";
-  const [accent, muted, foreground] = useThemeColor(["accent", "muted", "foreground"]);
+  const [accent, muted, foreground] = useThemeColor([
+    "accent",
+    "muted",
+    "foreground",
+  ]);
 
   const toggleTheme = () => Uniwind.setTheme(isDark ? "light" : "dark");
 
@@ -35,7 +39,7 @@ export default function Settings() {
           onPress={() => router.back()}
           className="w-9 h-9 rounded-full bg-default items-center justify-center"
         >
-          <Ionicons name="chevron-forward" size={20} color={foreground} />
+          <Ionicons name="chevron-back" size={20} color={foreground} />
         </Pressable>
       </View>
 
@@ -45,7 +49,11 @@ export default function Settings() {
       >
         {/* Appearance section */}
         <View className="gap-2">
-          <Text.Paragraph type="body-sm" color="muted" className="mr-1 text-right">
+          <Text.Paragraph
+            type="body-sm"
+            color="muted"
+            className="mr-1 text-right"
+          >
             المظهر
           </Text.Paragraph>
 
@@ -76,7 +84,10 @@ export default function Settings() {
                 <Switch.Thumb
                   className="size-6"
                   animation={{
-                    left: { value: 4, springConfig: { damping: 30, stiffness: 300 } },
+                    left: {
+                      value: 4,
+                      springConfig: { damping: 30, stiffness: 300 },
+                    },
                   }}
                 />
                 <Switch.StartContent className="left-1.5">
@@ -100,20 +111,34 @@ export default function Settings() {
 
         {/* Notifications section */}
         <View className="gap-2">
-          <Text.Paragraph type="body-sm" color="muted" className="mr-1 text-right">
+          <Text.Paragraph
+            type="body-sm"
+            color="muted"
+            className="mr-1 text-right"
+          >
             الإشعارات
           </Text.Paragraph>
 
           <ListGroup>
             <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
               <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons name="notifications-outline" size={18} color={accent} />
+                <Ionicons
+                  name="notifications-outline"
+                  size={18}
+                  color={accent}
+                />
               </View>
               <View className="flex-1">
                 <ListGroup.ItemTitle>إشعارات التطبيق</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>تلقّي الإشعارات</ListGroup.ItemDescription>
+                <ListGroup.ItemDescription>
+                  تلقّي الإشعارات
+                </ListGroup.ItemDescription>
               </View>
-              <Switch isSelected={true} onSelectedChange={() => {}} className="w-14 h-8">
+              <Switch
+                isSelected={true}
+                onSelectedChange={() => {}}
+                className="w-14 h-8"
+              >
                 <Switch.Thumb className="size-6" />
               </Switch>
             </ListGroup.Item>
@@ -124,9 +149,15 @@ export default function Settings() {
               </View>
               <View className="flex-1">
                 <ListGroup.ItemTitle>إشعارات البريد</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>تلقّي رسائل البريد</ListGroup.ItemDescription>
+                <ListGroup.ItemDescription>
+                  تلقّي رسائل البريد
+                </ListGroup.ItemDescription>
               </View>
-              <Switch isSelected={false} onSelectedChange={() => {}} className="w-14 h-8">
+              <Switch
+                isSelected={false}
+                onSelectedChange={() => {}}
+                className="w-14 h-8"
+              >
                 <Switch.Thumb className="size-6" />
               </Switch>
             </ListGroup.Item>
@@ -135,14 +166,22 @@ export default function Settings() {
 
         {/* About section */}
         <View className="gap-2">
-          <Text.Paragraph type="body-sm" color="muted" className="mr-1 text-right">
+          <Text.Paragraph
+            type="body-sm"
+            color="muted"
+            className="mr-1 text-right"
+          >
             حول التطبيق
           </Text.Paragraph>
 
           <ListGroup>
             <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
               <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons name="information-circle-outline" size={18} color={accent} />
+                <Ionicons
+                  name="information-circle-outline"
+                  size={18}
+                  color={accent}
+                />
               </View>
               <View className="flex-1">
                 <ListGroup.ItemTitle>الإصدار</ListGroup.ItemTitle>
@@ -152,7 +191,11 @@ export default function Settings() {
             <Separator className="mx-4" />
             <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
               <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons name="shield-checkmark-outline" size={18} color={accent} />
+                <Ionicons
+                  name="shield-checkmark-outline"
+                  size={18}
+                  color={accent}
+                />
               </View>
               <View className="flex-1">
                 <ListGroup.ItemTitle>سياسة الخصوصية</ListGroup.ItemTitle>
