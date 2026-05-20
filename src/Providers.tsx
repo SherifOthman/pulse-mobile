@@ -18,7 +18,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   if (!loaded) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView className="flex-1 bg-background">
       <HeroUINativeProvider>
         <QueryClientProvider client={client}>{children}</QueryClientProvider>
       </HeroUINativeProvider>
