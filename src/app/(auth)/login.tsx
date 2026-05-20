@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Login() {
   const insets = useSafeAreaInsets();
   const { signIn, isLoading, error } = useGoogleLogin();
-  const [accentForeground] = useThemeColor(["accent-foreground"]);
+  const [accent, accentForeground] = useThemeColor(["accent", "accent-foreground"]);
 
   return (
     <View
@@ -17,11 +17,12 @@ export default function Login() {
       <View className="flex-1 items-center justify-center px-8 gap-6">
         {/* Logo / brand mark */}
         <View className="items-center gap-2">
-          <Image
-            source={require("@/assets/images/login-image.png")}
-            style={{ width: 100, height: 100 }}
-            resizeMode="contain"
-          />
+          <View
+            className="w-20 h-20 rounded-3xl bg-accent items-center justify-center"
+            style={{ shadowColor: accent, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.35, shadowRadius: 16, elevation: 12 }}
+          >
+            <Text style={{ fontSize: 40 }}>🩺</Text>
+          </View>
           <Text.Heading
             type="h1"
             weight="bold"
