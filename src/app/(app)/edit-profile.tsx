@@ -83,7 +83,7 @@ export default function EditProfile() {
     formState: { errors, isDirty },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { fullName: data?.fullName ?? "" },
+    values: { fullName: data?.fullName ?? "" },
   });
 
   // ─── Pick image ────────────────────────────────────────────────────
@@ -163,19 +163,8 @@ export default function EditProfile() {
           </Text.Heading>
         </View>
 
-        {/* Save button */}
-        <Button
-          size="sm"
-          variant={hasChanges ? "primary" : "ghost"}
-          isDisabled={!hasChanges || isSaving}
-          onPress={handleSubmit(onSubmit)}
-        >
-          {isSaving ? (
-            <Spinner />
-          ) : (
-            <Button.Label>حفظ</Button.Label>
-          )}
-        </Button>
+        {/* Spacer to keep title centered */}
+        <View style={{ width: 36 }} />
       </View>
 
       <ScrollView
@@ -287,6 +276,19 @@ export default function EditProfile() {
             </View>
           </Field>
         </View>
+
+        {/* Save button at bottom */}
+        {hasChanges && (
+          <Button
+            size="lg"
+            variant="primary"
+            isDisabled={isSaving}
+            onPress={handleSubmit(onSubmit)}
+            className="w-full mt-4"
+          >
+            {isSaving ? <Spinner /> : <Button.Label>حفظ</Button.Label>}
+          </Button>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
