@@ -1,13 +1,15 @@
 ﻿import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
+  Button,
   ListGroup,
   Separator,
+  Surface,
   Switch,
   Text,
   useThemeColor,
 } from "heroui-native";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Animated, { ZoomIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Uniwind, useUniwind } from "uniwind";
@@ -35,12 +37,14 @@ export default function Settings() {
           الإعدادات
         </Text.Heading>
         <View className="flex-1" />
-        <Pressable
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
           onPress={() => router.back()}
-          className="w-9 h-9 rounded-full bg-default items-center justify-center"
         >
           <Ionicons name="chevron-back" size={20} color={foreground} />
-        </Pressable>
+        </Button>
       </View>
 
       <ScrollView
@@ -48,7 +52,7 @@ export default function Settings() {
         showsVerticalScrollIndicator={false}
       >
         {/* Appearance section */}
-        <View className="gap-2">
+        <Surface variant="default" className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -58,9 +62,7 @@ export default function Settings() {
           </Text.Paragraph>
 
           <ListGroup>
-            {/* Dark mode row — RTL */}
             <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              {/* Icon */}
               <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
                 <Ionicons
                   name={isDark ? "moon" : "sunny-outline"}
@@ -68,14 +70,12 @@ export default function Settings() {
                   color={accent}
                 />
               </View>
-              {/* Label */}
               <View className="flex-1">
                 <ListGroup.ItemTitle>الوضع الليلي</ListGroup.ItemTitle>
                 <ListGroup.ItemDescription>
                   {isDark ? "مفعّل" : "معطّل"}
                 </ListGroup.ItemDescription>
               </View>
-              {/* HeroUI Switch */}
               <Switch
                 isSelected={isDark}
                 onSelectedChange={toggleTheme}
@@ -107,10 +107,10 @@ export default function Settings() {
               </Switch>
             </ListGroup.Item>
           </ListGroup>
-        </View>
+        </Surface>
 
         {/* Notifications section */}
-        <View className="gap-2">
+        <Surface variant="default" className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -162,10 +162,10 @@ export default function Settings() {
               </Switch>
             </ListGroup.Item>
           </ListGroup>
-        </View>
+        </Surface>
 
         {/* About section */}
-        <View className="gap-2">
+        <Surface variant="default" className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -203,7 +203,7 @@ export default function Settings() {
               <Ionicons name="chevron-back" size={16} color={muted} />
             </ListGroup.Item>
           </ListGroup>
-        </View>
+        </Surface>
       </ScrollView>
     </View>
   );

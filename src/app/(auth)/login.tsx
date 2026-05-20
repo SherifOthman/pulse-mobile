@@ -52,7 +52,7 @@ export default function Login() {
               className="flex-row-reverse items-center gap-3 bg-surface-secondary rounded-2xl px-4 py-3"
             >
               <Text style={{ fontSize: 22 }}>{item.icon}</Text>
-              <Text.Paragraph type="body-sm" weight="medium" align="right" className="flex-1">
+              <Text.Paragraph type="body-sm" weight="medium" align="end" className="flex-1">
                 {item.text}
               </Text.Paragraph>
             </View>
@@ -89,7 +89,7 @@ export default function Login() {
                 style={{ width: 22, height: 22 }}
                 resizeMode="contain"
               />
-              <Button.Label weight="bold">
+              <Button.Label className="font-bold">
                 تسجيل الدخول بجوجل
               </Button.Label>
             </>

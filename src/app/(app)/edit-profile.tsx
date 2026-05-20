@@ -7,17 +7,20 @@ import { z } from "zod";
 import {
   Avatar,
   Button,
-  Spinner,
+  FieldError,
+  Input,
+  Label,
+  PressableFeedback,
+  Skeleton,
   Text,
+  TextField,
   useThemeColor,
 } from "heroui-native";
 import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
-  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -26,7 +29,6 @@ import { updateMe } from "@/src/features/profile/auth-api";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-// ─── Validation schema ───────────────────────────────────────────────
 const schema = z.object({
   fullName: z
     .string()
@@ -36,31 +38,6 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-// ─── Reusable field ──────────────────────────────────────────────────
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <View className="gap-1.5">
-      <Text type="body-sm" weight="medium" align="end" className="text-foreground">
-        {label}
-      </Text>
-      {children}
-      {error && (
-        <Text type="body-xs" className="text-danger text-right">
-          {error}
-        </Text>
-      )}
-    </View>
-  );
-}
-
 export default function EditProfile() {
   const insets = useSafeAreaInsets();
   const { data, isLoading } = useMe();
@@ -68,13 +45,10 @@ export default function EditProfile() {
   const [isSaving, setIsSaving] = useState(false);
   const [localImage, setLocalImage] = useState<string | null>(null);
 
-  const [accent, muted, foreground, border, surface, fieldBg] = useThemeColor([
+  const [accent, muted, foreground] = useThemeColor([
     "accent",
     "muted",
     "foreground",
-    "border",
-    "surface",
-    "field",
   ]);
 
   const {
@@ -86,7 +60,6 @@ export default function EditProfile() {
     values: { fullName: data?.fullName ?? "" },
   });
 
-  // ─── Pick image ────────────────────────────────────────────────────
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -104,7 +77,6 @@ export default function EditProfile() {
     }
   };
 
-  // ─── Submit ────────────────────────────────────────────────────────
   const onSubmit = async (values: FormData) => {
     setIsSaving(true);
     try {
@@ -124,7 +96,8 @@ export default function EditProfile() {
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-background">
-        <Spinner />
+        <Skeleton className="w-24 h-24 rounded-full" />
+        <Skeleton className="w-48 h-6 rounded-lg mt-4" />
       </View>
     );
   }
@@ -142,20 +115,14 @@ export default function EditProfile() {
         className="flex-row items-center px-5 pb-4 border-b border-border"
         style={{ paddingTop: insets.top + 12 }}
       >
-        {/* Back button — right side for RTL */}
-        <Pressable
+        <Button
+          variant="ghost"
+          size="sm"
+          isIconOnly
           onPress={() => router.back()}
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 18,
-            backgroundColor: surface,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
         >
           <Ionicons name="chevron-forward" size={20} color={foreground} />
-        </Pressable>
+        </Button>
 
         <View className="flex-1 items-center">
           <Text.Heading type="h5" weight="bold">
@@ -163,7 +130,6 @@ export default function EditProfile() {
           </Text.Heading>
         </View>
 
-        {/* Spacer to keep title centered */}
         <View style={{ width: 36 }} />
       </View>
 
@@ -191,8 +157,7 @@ export default function EditProfile() {
               </Avatar.Fallback>
             </Avatar>
 
-            {/* Camera badge */}
-            <Pressable
+            <PressableFeedback
               onPress={pickImage}
               style={{
                 position: "absolute",
@@ -208,76 +173,50 @@ export default function EditProfile() {
               }}
             >
               <Ionicons name="camera" size={16} color="white" />
-            </Pressable>
+            </PressableFeedback>
           </View>
 
-          <Pressable onPress={pickImage}>
+          <PressableFeedback onPress={pickImage}>
             <Text type="body-sm" className="text-accent" weight="medium">
               تغيير الصورة
             </Text>
-          </Pressable>
+          </PressableFeedback>
         </View>
 
         {/* Form fields */}
         <View className="gap-5">
           {/* Full name */}
-          <Field label="الاسم الكامل" error={errors.fullName?.message}>
-            <Controller
-              control={control}
-              name="fullName"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
+          <Controller
+            control={control}
+            name="fullName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextField isInvalid={!!errors.fullName}>
+                <Label>الاسم الكامل</Label>
+                <Input
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
                   placeholder="أدخل اسمك الكامل"
-                  placeholderTextColor={muted}
                   textAlign="right"
-                  style={{
-                    backgroundColor: fieldBg,
-                    borderWidth: 1,
-                    borderColor: errors.fullName ? "#ef4444" : border,
-                    borderRadius: 12,
-                    paddingHorizontal: 16,
-                    paddingVertical: 14,
-                    fontSize: 15,
-                    color: foreground,
-                    fontFamily: "Cairo",
-                  }}
                 />
-              )}
-            />
-          </Field>
+                {errors.fullName && (
+                  <FieldError>{errors.fullName.message}</FieldError>
+                )}
+              </TextField>
+            )}
+          />
 
           {/* Email — read only */}
-          <Field label="البريد الإلكتروني">
-            <View
-              style={{
-                backgroundColor: fieldBg,
-                borderWidth: 1,
-                borderColor: border,
-                borderRadius: 12,
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: 8,
-                opacity: 0.6,
-              }}
-            >
-              <Text
-                type="body"
-                style={{ color: muted, fontFamily: "Cairo" }}
-              >
-                {data?.email}
-              </Text>
-              <Ionicons name="lock-closed-outline" size={16} color={muted} />
-            </View>
-          </Field>
+          <TextField isDisabled>
+            <Label>البريد الإلكتروني</Label>
+            <Input
+              value={data?.email ?? ""}
+              textAlign="right"
+            />
+          </TextField>
         </View>
 
-        {/* Save button at bottom */}
+        {/* Save button */}
         {hasChanges && (
           <Button
             size="lg"
@@ -286,7 +225,7 @@ export default function EditProfile() {
             onPress={handleSubmit(onSubmit)}
             className="w-full mt-4"
           >
-            {isSaving ? <Spinner /> : <Button.Label>حفظ</Button.Label>}
+            <Button.Label>حفظ</Button.Label>
           </Button>
         )}
       </ScrollView>

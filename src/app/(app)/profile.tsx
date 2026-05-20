@@ -5,13 +5,15 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
 import {
   Avatar,
+  Button,
   Chip,
+  ListGroup,
   Separator,
-  Spinner,
+  Skeleton,
   Text,
   useThemeColor,
 } from "heroui-native";
-import { Pressable, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Profile() {
@@ -33,24 +35,12 @@ export default function Profile() {
     router.replace("/(auth)/login");
   };
 
-  const menuItems: MenuItem[] = [
-    {
-      icon: "pencil-outline",
-      label: "تعديل الملف الشخصي",
-      onPress: () => router.push("/(app)/edit-profile"),
-    },
-    {
-      icon: "settings-outline",
-      label: "الإعدادات",
-      onPress: () => router.push("/(app)/settings"),
-    },
-    { icon: "people-outline", label: "دعوة صديق", onPress: () => {} },
-  ];
-
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-background">
-        <Spinner />
+        <Skeleton className="w-28 h-28 rounded-full" />
+        <Skeleton className="w-40 h-6 rounded-lg mt-6" />
+        <Skeleton className="w-48 h-8 rounded-full mt-4" />
       </View>
     );
   }
@@ -93,111 +83,64 @@ export default function Profile() {
       </View>
 
       {/* Menu */}
-      <View
-        className="w-full rounded-2xl overflow-hidden"
-        style={{ backgroundColor: surface }}
-      >
-        {menuItems.map((item, index) => (
-          <View key={item.label}>
-            <RTLRow
-              icon={item.icon}
-              label={item.label}
-              onPress={item.onPress}
-              iconBg={accent + "18"}
-              iconColor={accent}
-              muted={muted}
-            />
-            {index < menuItems.length - 1 && <Separator className="mx-4" />}
+      <ListGroup className="w-full">
+        <ListGroup.Item
+          onPress={() => router.push("/(app)/edit-profile")}
+          className="flex-row-reverse"
+        >
+          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <Ionicons name="pencil-outline" size={18} color={accent} />
           </View>
-        ))}
-      </View>
+          <View className="flex-1 items-end">
+            <ListGroup.ItemTitle>تعديل الملف الشخصي</ListGroup.ItemTitle>
+          </View>
+          <Ionicons name="chevron-back" size={16} color={muted} />
+        </ListGroup.Item>
+
+        <Separator className="mx-4" />
+
+        <ListGroup.Item
+          onPress={() => router.push("/(app)/settings")}
+          className="flex-row-reverse"
+        >
+          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <Ionicons name="settings-outline" size={18} color={accent} />
+          </View>
+          <View className="flex-1 items-end">
+            <ListGroup.ItemTitle>الإعدادات</ListGroup.ItemTitle>
+          </View>
+          <Ionicons name="chevron-back" size={16} color={muted} />
+        </ListGroup.Item>
+
+        <Separator className="mx-4" />
+
+        <ListGroup.Item className="flex-row-reverse">
+          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <Ionicons name="people-outline" size={18} color={accent} />
+          </View>
+          <View className="flex-1 items-end">
+            <ListGroup.ItemTitle>دعوة صديق</ListGroup.ItemTitle>
+          </View>
+          <Ionicons name="chevron-back" size={16} color={muted} />
+        </ListGroup.Item>
+      </ListGroup>
 
       {/* Logout */}
-      <View
-        className="w-full rounded-2xl overflow-hidden"
-        style={{ backgroundColor: surface }}
-      >
-        <RTLRow
-          icon="log-out-outline"
-          label="تسجيل الخروج"
+      <ListGroup className="w-full">
+        <ListGroup.Item
           onPress={handleLogout}
-          iconBg={danger + "18"}
-          iconColor={danger}
-          textColor={danger}
-          muted={muted}
-          showArrow={false}
-        />
-      </View>
-    </ScrollView>
-  );
-}
-
-type MenuItem = {
-  icon: React.ComponentProps<typeof Ionicons>["name"];
-  label: string;
-  onPress: () => void;
-  danger?: boolean;
-};
-
-// RTL row: icon (right) → text → arrow (left)
-function RTLRow({
-  icon,
-  label,
-  onPress,
-  iconBg,
-  iconColor,
-  textColor,
-  muted,
-  showArrow = true,
-}: {
-  icon: React.ComponentProps<typeof Ionicons>["name"];
-  label: string;
-  onPress: () => void;
-  iconBg: string;
-  iconColor: string;
-  textColor?: string;
-  muted: string;
-  showArrow?: boolean;
-}) {
-  return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => ({
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 14,
-        opacity: pressed ? 0.7 : 1,
-      })}
-    >
-      {/* Arrow — far left */}
-      {showArrow && <Ionicons name="chevron-back" size={16} color={muted} />}
-
-      {/* Text — fills middle */}
-      <View style={{ flex: 1, marginHorizontal: 12 }}>
-        <Text
-          className="text-right"
-          type="body"
-          weight="medium"
-          style={textColor ? { color: textColor } : undefined}
+          className="flex-row-reverse"
         >
-          {label}
-        </Text>
-      </View>
-
-      {/* Icon circle — far right */}
-      <View
-        style={{
-          width: 38,
-          height: 38,
-          borderRadius: 19,
-          backgroundColor: iconBg,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Ionicons name={icon} size={18} color={iconColor} />
-      </View>
-    </Pressable>
+          <View className="w-9 h-9 rounded-full bg-danger/10 items-center justify-center ml-3">
+            <Ionicons name="log-out-outline" size={18} color={danger} />
+          </View>
+          <View className="flex-1 items-end">
+            <Text type="body" weight="medium" className="text-danger">
+              تسجيل الخروج
+            </Text>
+          </View>
+        </ListGroup.Item>
+      </ListGroup>
+    </ScrollView>
   );
 }

@@ -1,5 +1,5 @@
 import { useMe } from "@/src/features/profile/profile-queries";
-import { Spinner, Text } from "heroui-native";
+import { Skeleton, Text } from "heroui-native";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -9,8 +9,10 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 items-center justify-center ">
-        <Spinner />
+      <View className="flex-1 items-center justify-center gap-3 bg-background">
+        <Skeleton className="w-32 h-8 rounded-lg" />
+        <Skeleton className="w-48 h-5 rounded-md" />
+        <Skeleton className="w-40 h-4 rounded-md" />
       </View>
     );
   }
