@@ -4,24 +4,8 @@ import { useEffect, useState } from "react";
 import Providers from "../Providers";
 import { useAuthStore } from "../stores/auth-store";
 
-function RootNavigator() {
-  const [background] = useThemeColor(["background"]);
-
-  return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: background },
-      }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(app)" />
-    </Stack>
-  );
-}
-
 export default function RootLayout() {
+  const [background] = useThemeColor(["background"]);
   const hydrate = useAuthStore((state) => state.hydrate);
   const [hydrated, setHydrated] = useState(false);
 
@@ -37,7 +21,16 @@ export default function RootLayout() {
 
   return (
     <Providers>
-      <RootNavigator />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: background },
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(app)" />
+      </Stack>
     </Providers>
   );
 }
