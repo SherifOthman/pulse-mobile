@@ -100,8 +100,14 @@ export default function AppLayout() {
         }}
       />
       {/* Hidden screens */}
-      <Tabs.Screen name="settings" options={{ href: null }} />
-      <Tabs.Screen name="edit-profile" options={{ href: null }} />
+      <Tabs.Screen
+        name="settings"
+        options={{ href: null, tabBarStyle: { display: "none" } }}
+      />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{ href: null, tabBarStyle: { display: "none" } }}
+      />
     </Tabs>
   );
 }
