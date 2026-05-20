@@ -4,7 +4,6 @@ import {
   Button,
   ListGroup,
   Separator,
-  Surface,
   Switch,
   Text,
   useThemeColor,
@@ -61,8 +60,7 @@ export default function Settings() {
             المظهر
           </Text.Paragraph>
 
-          <Surface>
-            <ListGroup>
+          <ListGroup>
               <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
                 <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
                   <Ionicons
@@ -108,7 +106,6 @@ export default function Settings() {
                 </Switch>
               </ListGroup.Item>
             </ListGroup>
-          </Surface>
         </View>
 
         {/* Notifications section */}
@@ -121,8 +118,7 @@ export default function Settings() {
             الإشعارات
           </Text.Paragraph>
 
-          <Surface>
-            <ListGroup>
+          <ListGroup>
               <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
                 <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
                   <Ionicons
@@ -165,7 +161,6 @@ export default function Settings() {
                 </Switch>
               </ListGroup.Item>
             </ListGroup>
-          </Surface>
         </View>
 
         {/* About section */}
@@ -178,8 +173,7 @@ export default function Settings() {
             حول التطبيق
           </Text.Paragraph>
 
-          <Surface>
-            <ListGroup>
+          <ListGroup>
               <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
                 <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
                   <Ionicons
@@ -208,7 +202,6 @@ export default function Settings() {
                 <Ionicons name="chevron-back" size={16} color={muted} />
               </ListGroup.Item>
             </ListGroup>
-          </Surface>
         </View>
       </ScrollView>
     </View>
