@@ -1,16 +1,13 @@
 ﻿import { zodResolver } from "@hookform/resolvers/zod";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import * as ImagePicker from "expo-image-picker";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import {
-  Avatar,
   Button,
   FieldError,
   Input,
   Label,
-  PressableFeedback,
   Skeleton,
   Text,
   TextField,
@@ -25,7 +22,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useMe } from "@/src/features/profile/profile-queries";
-import { updateMe } from "@/src/features/profile/auth-api";
+import { updateMe } from "@/src/features/profile/profile-api";
+import { AvatarPicker } from "@/src/features/profile/components/avatar-picker";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -45,11 +43,7 @@ export default function EditProfile() {
   const [isSaving, setIsSaving] = useState(false);
   const [localImage, setLocalImage] = useState<string | null>(null);
 
-  const [accent, muted, foreground] = useThemeColor([
-    "accent",
-    "muted",
-    "foreground",
-  ]);
+  const [foreground] = useThemeColor(["foreground"]);
 
   const {
     control,
@@ -59,23 +53,6 @@ export default function EditProfile() {
     resolver: zodResolver(schema),
     values: { fullName: data?.fullName ?? "" },
   });
-
-  const pickImage = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert("الإذن مرفوض", "يرجى السماح بالوصول إلى الصور من الإعدادات");
-      return;
-    }
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
-    if (!result.canceled && result.assets[0]) {
-      setLocalImage(result.assets[0].uri);
-    }
-  };
 
   const onSubmit = async (values: FormData) => {
     setIsSaving(true);
@@ -102,7 +79,6 @@ export default function EditProfile() {
     );
   }
 
-  const avatarUri = localImage ?? data?.imageUrl ?? undefined;
   const hasChanges = isDirty || localImage !== null;
 
   return (
@@ -110,7 +86,6 @@ export default function EditProfile() {
       className="flex-1 bg-background"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      {/* Header */}
       <View
         className="flex-row items-center px-5 pb-4 border-b border-border"
         style={{ paddingTop: insets.top + 12 }}
@@ -142,50 +117,13 @@ export default function EditProfile() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Avatar picker */}
-        <View className="items-center gap-3">
-          <View>
-            <Avatar
-              size="lg"
-              style={{ width: 100, height: 100, borderRadius: 50 }}
-            >
-              {avatarUri ? (
-                <Avatar.Image source={{ uri: avatarUri }} />
-              ) : null}
-              <Avatar.Fallback delayMs={200}>
-                {data?.fullName?.charAt(0) ?? "؟"}
-              </Avatar.Fallback>
-            </Avatar>
+        <AvatarPicker
+          avatarUri={localImage ?? data?.imageUrl ?? undefined}
+          fallbackName={data?.fullName}
+          onChangeImage={setLocalImage}
+        />
 
-            <PressableFeedback
-              onPress={pickImage}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: 32,
-                height: 32,
-                borderRadius: 16,
-                backgroundColor: accent,
-                alignItems: "center",
-                justifyContent: "center",
-                elevation: 3,
-              }}
-            >
-              <Ionicons name="camera" size={16} color="white" />
-            </PressableFeedback>
-          </View>
-
-          <PressableFeedback onPress={pickImage}>
-            <Text type="body-sm" className="text-accent" weight="medium">
-              تغيير الصورة
-            </Text>
-          </PressableFeedback>
-        </View>
-
-        {/* Form fields */}
         <View className="gap-5">
-          {/* Full name */}
           <Controller
             control={control}
             name="fullName"
@@ -206,17 +144,12 @@ export default function EditProfile() {
             )}
           />
 
-          {/* Email — read only */}
           <TextField isDisabled>
             <Label>البريد الإلكتروني</Label>
-            <Input
-              value={data?.email ?? ""}
-              textAlign="right"
-            />
+            <Input value={data?.email ?? ""} textAlign="right" />
           </TextField>
         </View>
 
-        {/* Save button */}
         {hasChanges && (
           <Button
             size="lg"

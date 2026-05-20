@@ -1,18 +1,10 @@
 ﻿import { useMe } from "@/src/features/profile/profile-queries";
+import { ProfileHeader } from "@/src/features/profile/components/profile-header";
+import { ProfileMenu } from "@/src/features/profile/components/profile-menu";
 import { useAuthStore } from "@/src/stores/auth-store";
-import { Ionicons } from "@expo/vector-icons";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
-import {
-  Avatar,
-  Button,
-  Chip,
-  ListGroup,
-  Separator,
-  Skeleton,
-  Text,
-  useThemeColor,
-} from "heroui-native";
+import { Skeleton } from "heroui-native";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -20,12 +12,6 @@ export default function Profile() {
   const insets = useSafeAreaInsets();
   const logout = useAuthStore((state) => state.logout);
   const { data, isLoading } = useMe();
-  const [muted, accent, danger, surface] = useThemeColor([
-    "muted",
-    "accent",
-    "danger",
-    "surface",
-  ]);
 
   const handleLogout = async () => {
     try {
@@ -57,90 +43,16 @@ export default function Profile() {
       }}
       showsVerticalScrollIndicator={false}
     >
-      {/* Avatar */}
-      <View className="items-center mt-4">
-        <View>
-          <Avatar
-            size="lg"
-            style={{ width: 112, height: 112, borderRadius: 56 }}
-          >
-            {data?.imageUrl ? (
-              <Avatar.Image source={{ uri: data.imageUrl }} />
-            ) : null}
-            <Avatar.Fallback delayMs={200}>
-              {data?.fullName?.charAt(0) ?? "؟"}
-            </Avatar.Fallback>
-          </Avatar>
-        </View>
+      <ProfileHeader imageUrl={data?.imageUrl ?? null} fullName={data?.fullName} email={data?.email} />
 
-        <Text.Heading type="h3" weight="bold" align="center" className="mt-4">
-          {data?.fullName ?? "المستخدم"}
-        </Text.Heading>
-
-        <Chip size="md" className="mt-3 bg-default px-4">
-          <Chip.Label className="text-muted text-sm">{data?.email}</Chip.Label>
-        </Chip>
-      </View>
-
-      {/* Menu */}
-      <ListGroup className="w-full">
-        <ListGroup.Item
-          onPress={() => router.push("/(app)/edit-profile")}
-          className="flex-row-reverse"
-        >
-          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-            <Ionicons name="pencil-outline" size={18} color={accent} />
-          </View>
-          <View className="flex-1 items-end">
-            <ListGroup.ItemTitle>تعديل الملف الشخصي</ListGroup.ItemTitle>
-          </View>
-          <Ionicons name="chevron-back" size={16} color={muted} />
-        </ListGroup.Item>
-
-        <Separator className="mx-4" />
-
-        <ListGroup.Item
-          onPress={() => router.push("/(app)/settings")}
-          className="flex-row-reverse"
-        >
-          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-            <Ionicons name="settings-outline" size={18} color={accent} />
-          </View>
-          <View className="flex-1 items-end">
-            <ListGroup.ItemTitle>الإعدادات</ListGroup.ItemTitle>
-          </View>
-          <Ionicons name="chevron-back" size={16} color={muted} />
-        </ListGroup.Item>
-
-        <Separator className="mx-4" />
-
-        <ListGroup.Item className="flex-row-reverse">
-          <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-            <Ionicons name="people-outline" size={18} color={accent} />
-          </View>
-          <View className="flex-1 items-end">
-            <ListGroup.ItemTitle>دعوة صديق</ListGroup.ItemTitle>
-          </View>
-          <Ionicons name="chevron-back" size={16} color={muted} />
-        </ListGroup.Item>
-      </ListGroup>
-
-      {/* Logout */}
-      <ListGroup className="w-full">
-        <ListGroup.Item
-          onPress={handleLogout}
-          className="flex-row-reverse"
-        >
-          <View className="w-9 h-9 rounded-full bg-danger/10 items-center justify-center ml-3">
-            <Ionicons name="log-out-outline" size={18} color={danger} />
-          </View>
-          <View className="flex-1 items-end">
-            <Text type="body" weight="medium" className="text-danger">
-              تسجيل الخروج
-            </Text>
-          </View>
-        </ListGroup.Item>
-      </ListGroup>
+      <ProfileMenu
+        menuItems={[
+          { icon: "pencil-outline", label: "تعديل الملف الشخصي", onPress: () => router.push("/(app)/edit-profile") },
+          { icon: "settings-outline", label: "الإعدادات", onPress: () => router.push("/(app)/settings") },
+          { icon: "people-outline", label: "دعوة صديق" },
+        ]}
+        logoutItem={{ onPress: handleLogout }}
+      />
     </ScrollView>
   );
 }

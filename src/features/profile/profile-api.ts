@@ -1,13 +1,12 @@
-﻿import { API_RUL } from "@/src/config/constants";
 import { api } from "@/src/services/api";
-
-const BASE = API_RUL || "http://localhost:5170";
 
 export type User = {
   email: string;
   fullName: string;
   imageUrl: string | null;
 };
+
+const BASE = api.defaults.baseURL || "http://localhost:5170";
 
 function toAbsolute(url: string | null): string | null {
   if (!url || !url.startsWith("/uploads/")) return url;

@@ -1,11 +1,9 @@
 import axios from "axios";
-import { API_RUL } from "../config/constants";
+import { API_URL } from "../config/constants";
 import { useAuthStore } from "../stores/auth-store";
 
-const API_URL = API_RUL || "http://localhost:5170";
-
 export const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_URL || "http://localhost:5170",
 });
 
 let refreshPromise: Promise<void> | null = null;
@@ -42,7 +40,7 @@ api.interceptors.response.use(
         throw new Error("No refresh token available");
       }
 
-      const res = await axios.post(`${API_URL}/auth/refresh-token`, {
+      const res = await axios.post(`${api.defaults.baseURL}/auth/refresh-token`, {
         accessToken: store.accessToken,
         refreshToken: store.refreshToken,
       });
