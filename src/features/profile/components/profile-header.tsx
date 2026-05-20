@@ -11,7 +11,7 @@ export function ProfileHeader({ imageUrl, fullName, email }: Props) {
   return (
     <View className="items-center mt-4">
       <View>
-        <Avatar size="lg" className="w-[112px] h-[112px] rounded-full">
+        <Avatar size="lg" className="w-28 h-28 rounded-full">
           {imageUrl ? <Avatar.Image source={{ uri: imageUrl }} /> : null}
           <Avatar.Fallback delayMs={200}>
             {fullName?.charAt(0) ?? "؟"}
@@ -23,7 +23,7 @@ export function ProfileHeader({ imageUrl, fullName, email }: Props) {
         {fullName ?? "المستخدم"}
       </Text.Heading>
 
-      <Chip size="md" className="mt-3 bg-default px-4">
+      <Chip size="md" className="mt-3 px-4" variant="secondary">
         <Chip.Label className="text-muted text-sm">{email}</Chip.Label>
       </Chip>
     </View>

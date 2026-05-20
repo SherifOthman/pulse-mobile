@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ListGroup, Separator, Text, useThemeColor } from "heroui-native";
+import { ListGroup, Separator, useThemeColor } from "heroui-native";
 import { View } from "react-native";
 
 type MenuItem = {
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function ProfileMenu({ menuItems, logoutItem }: Props) {
-  const [muted, accent, danger] = useThemeColor(["muted", "accent", "danger"]);
+  const [accent, danger] = useThemeColor(["accent", "danger"]);
 
   return (
     <>
@@ -22,35 +22,34 @@ export function ProfileMenu({ menuItems, logoutItem }: Props) {
         {menuItems.map((item, index) => (
           <View key={index}>
             {index > 0 && <Separator className="mx-4" />}
-            <ListGroup.Item
-              onPress={item.onPress}
-              className="flex-row-reverse"
-            >
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <ListGroup.Item onPress={item.onPress}>
+              <ListGroup.ItemSuffix className="rotate-180" />
+              <ListGroup.ItemPrefix></ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle className="text-right">
+                  {item.label}
+                </ListGroup.ItemTitle>
+              </ListGroup.ItemContent>
+              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                 <Ionicons name={item.icon} size={18} color={accent} />
               </View>
-              <View className="flex-1 items-end">
-                <ListGroup.ItemTitle>{item.label}</ListGroup.ItemTitle>
-              </View>
-              <Ionicons name="chevron-back" size={16} color={muted} />
             </ListGroup.Item>
           </View>
         ))}
       </ListGroup>
 
       <ListGroup className="w-full">
-        <ListGroup.Item
-          onPress={logoutItem.onPress}
-          className="flex-row-reverse"
-        >
-          <View className="w-9 h-9 rounded-full bg-danger/10 items-center justify-center ml-3">
-            <Ionicons name="log-out-outline" size={18} color={danger} />
-          </View>
-          <View className="flex-1 items-end">
-            <Text type="body" weight="medium" className="text-danger">
+        <ListGroup.Item onPress={logoutItem.onPress}>
+          <ListGroup.ItemContent>
+            <ListGroup.ItemTitle className="text-danger text-right">
               تسجيل الخروج
-            </Text>
-          </View>
+            </ListGroup.ItemTitle>
+          </ListGroup.ItemContent>
+          <ListGroup.ItemPrefix>
+            <View className="w-9 h-9 rounded-full bg-danger/10 items-center justify-center">
+              <Ionicons name="log-out-outline" size={18} color={danger} />
+            </View>
+          </ListGroup.ItemPrefix>
         </ListGroup.Item>
       </ListGroup>
     </>

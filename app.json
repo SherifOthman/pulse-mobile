@@ -53,7 +53,15 @@
           "iosUrlScheme": "com.googleusercontent.apps.537064981983-8h8ji2t445j6tf4bds0bn3v85qhikpgn"
         }
       ],
-      "expo-image"
+      "expo-image",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

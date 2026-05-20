@@ -1,5 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
+import {
+  Cairo_400Regular,
+  Cairo_500Medium,
+  Cairo_600SemiBold,
+  Cairo_700Bold,
+} from "@expo-google-fonts/cairo";
 import { HeroUINativeProvider } from "heroui-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -9,10 +15,10 @@ const client = new QueryClient();
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [loaded] = useFonts({
-    Cairo: require("../assets/fonts/Cairo-Regular.ttf"),
-    "Cairo-Bold": require("../assets/fonts/Cairo-Bold.ttf"),
-    "Cairo-Medium": require("../assets/fonts/Cairo-Medium.ttf"),
-    "Cairo-SemiBold": require("../assets/fonts/Cairo-SemiBold.ttf"),
+    Cairo: Cairo_400Regular,
+    "Cairo-Bold": Cairo_700Bold,
+    "Cairo-Medium": Cairo_500Medium,
+    "Cairo-SemiBold": Cairo_600SemiBold,
   });
 
   if (!loaded) return null;

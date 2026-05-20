@@ -12,6 +12,7 @@
     "postinstall": "node scripts/patch-hero-font.js"
   },
   "dependencies": {
+    "@expo-google-fonts/cairo": "^0.4.2",
     "@expo/vector-icons": "^15.0.3",
     "@hookform/resolvers": "^3.10.0",
     "@react-native-google-signin/google-signin": "^16.1.2",
@@ -22,6 +23,7 @@
     "axios": "^1.16.1",
     "expo": "^55.0.0",
     "expo-auth-session": "~55.0.16",
+    "expo-build-properties": "~55.0.14",
     "expo-constants": "~55.0.16",
     "expo-font": "~55.0.8",
     "expo-haptics": "~55.0.14",

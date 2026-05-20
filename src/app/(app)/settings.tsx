@@ -17,11 +17,7 @@ export default function Settings() {
   const insets = useSafeAreaInsets();
   const { theme } = useUniwind();
   const isDark = theme === "dark";
-  const [accent, muted, foreground] = useThemeColor([
-    "accent",
-    "muted",
-    "foreground",
-  ]);
+  const [accent, foreground] = useThemeColor(["accent", "foreground"]);
 
   const toggleTheme = () => Uniwind.setTheme(isDark ? "light" : "dark");
 
@@ -61,20 +57,23 @@ export default function Settings() {
           </Text.Paragraph>
 
           <ListGroup>
-              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <ListGroup.Item>
+              <ListGroup.ItemPrefix>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                   <Ionicons
                     name={isDark ? "moon" : "sunny-outline"}
                     size={18}
                     color={accent}
                   />
                 </View>
-                <View className="flex-1">
-                  <ListGroup.ItemTitle>الوضع الليلي</ListGroup.ItemTitle>
-                  <ListGroup.ItemDescription>
-                    {isDark ? "مفعّل" : "معطّل"}
-                  </ListGroup.ItemDescription>
-                </View>
+              </ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle>الوضع الليلي</ListGroup.ItemTitle>
+                <ListGroup.ItemDescription>
+                  {isDark ? "مفعّل" : "معطّل"}
+                </ListGroup.ItemDescription>
+              </ListGroup.ItemContent>
+              <ListGroup.ItemSuffix>
                 <Switch
                   isSelected={isDark}
                   onSelectedChange={toggleTheme}
@@ -104,8 +103,9 @@ export default function Settings() {
                     )}
                   </Switch.EndContent>
                 </Switch>
-              </ListGroup.Item>
-            </ListGroup>
+              </ListGroup.ItemSuffix>
+            </ListGroup.Item>
+          </ListGroup>
         </View>
 
         {/* Notifications section */}
@@ -119,20 +119,23 @@ export default function Settings() {
           </Text.Paragraph>
 
           <ListGroup>
-              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <ListGroup.Item>
+              <ListGroup.ItemPrefix>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                   <Ionicons
                     name="notifications-outline"
                     size={18}
                     color={accent}
                   />
                 </View>
-                <View className="flex-1">
-                  <ListGroup.ItemTitle>إشعارات التطبيق</ListGroup.ItemTitle>
-                  <ListGroup.ItemDescription>
-                    تلقّي الإشعارات
-                  </ListGroup.ItemDescription>
-                </View>
+              </ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle>إشعارات التطبيق</ListGroup.ItemTitle>
+                <ListGroup.ItemDescription>
+                  تلقّي الإشعارات
+                </ListGroup.ItemDescription>
+              </ListGroup.ItemContent>
+              <ListGroup.ItemSuffix>
                 <Switch
                   isSelected={true}
                   onSelectedChange={() => {}}
@@ -140,18 +143,22 @@ export default function Settings() {
                 >
                   <Switch.Thumb className="size-6" />
                 </Switch>
-              </ListGroup.Item>
-              <Separator className="mx-4" />
-              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+              </ListGroup.ItemSuffix>
+            </ListGroup.Item>
+            <Separator className="mx-4" />
+            <ListGroup.Item>
+              <ListGroup.ItemPrefix>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                   <Ionicons name="mail-outline" size={18} color={accent} />
                 </View>
-                <View className="flex-1">
-                  <ListGroup.ItemTitle>إشعارات البريد</ListGroup.ItemTitle>
-                  <ListGroup.ItemDescription>
-                    تلقّي رسائل البريد
-                  </ListGroup.ItemDescription>
-                </View>
+              </ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle>إشعارات البريد</ListGroup.ItemTitle>
+                <ListGroup.ItemDescription>
+                  تلقّي رسائل البريد
+                </ListGroup.ItemDescription>
+              </ListGroup.ItemContent>
+              <ListGroup.ItemSuffix>
                 <Switch
                   isSelected={false}
                   onSelectedChange={() => {}}
@@ -159,8 +166,9 @@ export default function Settings() {
                 >
                   <Switch.Thumb className="size-6" />
                 </Switch>
-              </ListGroup.Item>
-            </ListGroup>
+              </ListGroup.ItemSuffix>
+            </ListGroup.Item>
+          </ListGroup>
         </View>
 
         {/* About section */}
@@ -174,34 +182,38 @@ export default function Settings() {
           </Text.Paragraph>
 
           <ListGroup>
-              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+            <ListGroup.Item>
+              <ListGroup.ItemPrefix>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                   <Ionicons
                     name="information-circle-outline"
                     size={18}
                     color={accent}
                   />
                 </View>
-                <View className="flex-1">
-                  <ListGroup.ItemTitle>الإصدار</ListGroup.ItemTitle>
-                  <ListGroup.ItemDescription>1.0.0</ListGroup.ItemDescription>
-                </View>
-              </ListGroup.Item>
-              <Separator className="mx-4" />
-              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+              </ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle>الإصدار</ListGroup.ItemTitle>
+                <ListGroup.ItemDescription>1.0.0</ListGroup.ItemDescription>
+              </ListGroup.ItemContent>
+            </ListGroup.Item>
+            <Separator className="mx-4" />
+            <ListGroup.Item>
+              <ListGroup.ItemPrefix>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center">
                   <Ionicons
                     name="shield-checkmark-outline"
                     size={18}
                     color={accent}
                   />
                 </View>
-                <View className="flex-1">
-                  <ListGroup.ItemTitle>سياسة الخصوصية</ListGroup.ItemTitle>
-                </View>
-                <Ionicons name="chevron-back" size={16} color={muted} />
-              </ListGroup.Item>
-            </ListGroup>
+              </ListGroup.ItemPrefix>
+              <ListGroup.ItemContent>
+                <ListGroup.ItemTitle>سياسة الخصوصية</ListGroup.ItemTitle>
+              </ListGroup.ItemContent>
+              <ListGroup.ItemSuffix />
+            </ListGroup.Item>
+          </ListGroup>
         </View>
       </ScrollView>
     </View>
