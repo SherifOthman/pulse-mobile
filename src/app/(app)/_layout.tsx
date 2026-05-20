@@ -4,10 +4,11 @@ import { useThemeColor } from "heroui-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AppLayout() {
-  const [accent, border, surface] = useThemeColor([
+  const [accent, border, surface, background] = useThemeColor([
     "accent",
     "border",
     "surface",
+    "background",
   ]);
   const insets = useSafeAreaInsets();
 
@@ -15,6 +16,7 @@ export default function AppLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        sceneStyle: { backgroundColor: background },
         tabBarLabelStyle: {
           fontFamily: "Cairo-Bold",
           fontSize: 11,
