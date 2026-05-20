@@ -52,7 +52,7 @@ export default function Settings() {
         showsVerticalScrollIndicator={false}
       >
         {/* Appearance section */}
-        <Surface variant="default" className="gap-2">
+        <View className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -61,56 +61,58 @@ export default function Settings() {
             المظهر
           </Text.Paragraph>
 
-          <ListGroup>
-            <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons
-                  name={isDark ? "moon" : "sunny-outline"}
-                  size={18}
-                  color={accent}
-                />
-              </View>
-              <View className="flex-1">
-                <ListGroup.ItemTitle>الوضع الليلي</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>
-                  {isDark ? "مفعّل" : "معطّل"}
-                </ListGroup.ItemDescription>
-              </View>
-              <Switch
-                isSelected={isDark}
-                onSelectedChange={toggleTheme}
-                className="w-14 h-8"
-              >
-                <Switch.Thumb
-                  className="size-6"
-                  animation={{
-                    left: {
-                      value: 4,
-                      springConfig: { damping: 30, stiffness: 300 },
-                    },
-                  }}
-                />
-                <Switch.StartContent className="left-1.5">
-                  {isDark && (
-                    <Animated.View entering={ZoomIn.springify()}>
-                      <Ionicons name="moon" size={14} color="white" />
-                    </Animated.View>
-                  )}
-                </Switch.StartContent>
-                <Switch.EndContent className="right-1.5">
-                  {!isDark && (
-                    <Animated.View entering={ZoomIn.springify()}>
-                      <Ionicons name="sunny" size={14} color="white" />
-                    </Animated.View>
-                  )}
-                </Switch.EndContent>
-              </Switch>
-            </ListGroup.Item>
-          </ListGroup>
-        </Surface>
+          <Surface>
+            <ListGroup>
+              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+                  <Ionicons
+                    name={isDark ? "moon" : "sunny-outline"}
+                    size={18}
+                    color={accent}
+                  />
+                </View>
+                <View className="flex-1">
+                  <ListGroup.ItemTitle>الوضع الليلي</ListGroup.ItemTitle>
+                  <ListGroup.ItemDescription>
+                    {isDark ? "مفعّل" : "معطّل"}
+                  </ListGroup.ItemDescription>
+                </View>
+                <Switch
+                  isSelected={isDark}
+                  onSelectedChange={toggleTheme}
+                  className="w-14 h-8"
+                >
+                  <Switch.Thumb
+                    className="size-6"
+                    animation={{
+                      left: {
+                        value: 4,
+                        springConfig: { damping: 30, stiffness: 300 },
+                      },
+                    }}
+                  />
+                  <Switch.StartContent className="left-1.5">
+                    {isDark && (
+                      <Animated.View entering={ZoomIn.springify()}>
+                        <Ionicons name="moon" size={14} color="white" />
+                      </Animated.View>
+                    )}
+                  </Switch.StartContent>
+                  <Switch.EndContent className="right-1.5">
+                    {!isDark && (
+                      <Animated.View entering={ZoomIn.springify()}>
+                        <Ionicons name="sunny" size={14} color="white" />
+                      </Animated.View>
+                    )}
+                  </Switch.EndContent>
+                </Switch>
+              </ListGroup.Item>
+            </ListGroup>
+          </Surface>
+        </View>
 
         {/* Notifications section */}
-        <Surface variant="default" className="gap-2">
+        <View className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -119,53 +121,55 @@ export default function Settings() {
             الإشعارات
           </Text.Paragraph>
 
-          <ListGroup>
-            <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons
-                  name="notifications-outline"
-                  size={18}
-                  color={accent}
-                />
-              </View>
-              <View className="flex-1">
-                <ListGroup.ItemTitle>إشعارات التطبيق</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>
-                  تلقّي الإشعارات
-                </ListGroup.ItemDescription>
-              </View>
-              <Switch
-                isSelected={true}
-                onSelectedChange={() => {}}
-                className="w-14 h-8"
-              >
-                <Switch.Thumb className="size-6" />
-              </Switch>
-            </ListGroup.Item>
-            <Separator className="mx-4" />
-            <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons name="mail-outline" size={18} color={accent} />
-              </View>
-              <View className="flex-1">
-                <ListGroup.ItemTitle>إشعارات البريد</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>
-                  تلقّي رسائل البريد
-                </ListGroup.ItemDescription>
-              </View>
-              <Switch
-                isSelected={false}
-                onSelectedChange={() => {}}
-                className="w-14 h-8"
-              >
-                <Switch.Thumb className="size-6" />
-              </Switch>
-            </ListGroup.Item>
-          </ListGroup>
-        </Surface>
+          <Surface>
+            <ListGroup>
+              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+                  <Ionicons
+                    name="notifications-outline"
+                    size={18}
+                    color={accent}
+                  />
+                </View>
+                <View className="flex-1">
+                  <ListGroup.ItemTitle>إشعارات التطبيق</ListGroup.ItemTitle>
+                  <ListGroup.ItemDescription>
+                    تلقّي الإشعارات
+                  </ListGroup.ItemDescription>
+                </View>
+                <Switch
+                  isSelected={true}
+                  onSelectedChange={() => {}}
+                  className="w-14 h-8"
+                >
+                  <Switch.Thumb className="size-6" />
+                </Switch>
+              </ListGroup.Item>
+              <Separator className="mx-4" />
+              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+                  <Ionicons name="mail-outline" size={18} color={accent} />
+                </View>
+                <View className="flex-1">
+                  <ListGroup.ItemTitle>إشعارات البريد</ListGroup.ItemTitle>
+                  <ListGroup.ItemDescription>
+                    تلقّي رسائل البريد
+                  </ListGroup.ItemDescription>
+                </View>
+                <Switch
+                  isSelected={false}
+                  onSelectedChange={() => {}}
+                  className="w-14 h-8"
+                >
+                  <Switch.Thumb className="size-6" />
+                </Switch>
+              </ListGroup.Item>
+            </ListGroup>
+          </Surface>
+        </View>
 
         {/* About section */}
-        <Surface variant="default" className="gap-2">
+        <View className="gap-2">
           <Text.Paragraph
             type="body-sm"
             color="muted"
@@ -174,36 +178,38 @@ export default function Settings() {
             حول التطبيق
           </Text.Paragraph>
 
-          <ListGroup>
-            <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons
-                  name="information-circle-outline"
-                  size={18}
-                  color={accent}
-                />
-              </View>
-              <View className="flex-1">
-                <ListGroup.ItemTitle>الإصدار</ListGroup.ItemTitle>
-                <ListGroup.ItemDescription>1.0.0</ListGroup.ItemDescription>
-              </View>
-            </ListGroup.Item>
-            <Separator className="mx-4" />
-            <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
-              <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
-                <Ionicons
-                  name="shield-checkmark-outline"
-                  size={18}
-                  color={accent}
-                />
-              </View>
-              <View className="flex-1">
-                <ListGroup.ItemTitle>سياسة الخصوصية</ListGroup.ItemTitle>
-              </View>
-              <Ionicons name="chevron-back" size={16} color={muted} />
-            </ListGroup.Item>
-          </ListGroup>
-        </Surface>
+          <Surface>
+            <ListGroup>
+              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+                  <Ionicons
+                    name="information-circle-outline"
+                    size={18}
+                    color={accent}
+                  />
+                </View>
+                <View className="flex-1">
+                  <ListGroup.ItemTitle>الإصدار</ListGroup.ItemTitle>
+                  <ListGroup.ItemDescription>1.0.0</ListGroup.ItemDescription>
+                </View>
+              </ListGroup.Item>
+              <Separator className="mx-4" />
+              <ListGroup.Item style={{ flexDirection: "row-reverse" }}>
+                <View className="w-9 h-9 rounded-full bg-accent/10 items-center justify-center ml-3">
+                  <Ionicons
+                    name="shield-checkmark-outline"
+                    size={18}
+                    color={accent}
+                  />
+                </View>
+                <View className="flex-1">
+                  <ListGroup.ItemTitle>سياسة الخصوصية</ListGroup.ItemTitle>
+                </View>
+                <Ionicons name="chevron-back" size={16} color={muted} />
+              </ListGroup.Item>
+            </ListGroup>
+          </Surface>
+        </View>
       </ScrollView>
     </View>
   );
