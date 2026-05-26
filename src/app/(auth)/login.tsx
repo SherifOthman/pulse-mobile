@@ -1,5 +1,5 @@
-﻿import { GoogleIcon } from "@/src/components/GoogleIcon";
-import { useGoogleLogin } from "@/src/features/auth/use-google-login";
+﻿import { GoogleIcon } from "@/src/features/auth/components/GoogleIcon";
+import { useGoogleLogin } from "@/src/features/auth/hooks/use-google-login";
 import { Button, Spinner, Text, useThemeColor } from "heroui-native";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,9 +17,7 @@ export default function Login() {
       className="bg-background flex-1"
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
-      {/* Top section — brand + illustration */}
       <View className="flex-1 items-center justify-center px-8 gap-6">
-        {/* Logo / brand mark */}
         <View className="items-center gap-2">
           <View
             className="w-20 h-20 rounded-3xl bg-accent items-center justify-center"
@@ -33,12 +31,7 @@ export default function Login() {
           >
             <Text style={{ fontSize: 40 }}>🩺</Text>
           </View>
-          <Text.Heading
-            type="h1"
-            weight="bold"
-            align="center"
-            className="text-foreground mt-2"
-          >
+          <Text.Heading type="h1" weight="bold" align="center" className="text-foreground mt-2">
             نبض
           </Text.Heading>
           <Text.Paragraph type="body-sm" color="muted" align="center">
@@ -46,24 +39,15 @@ export default function Login() {
           </Text.Paragraph>
         </View>
 
-        {/* Feature highlights */}
         <View className="gap-3 w-full mt-4">
           {[
             { icon: "👨‍⚕️", text: "أطباء, صيدليات, معامل وأشعة" },
             { icon: "⏰", text: "مواعيد العمل وأوقات الزيارة" },
             { icon: "⭐", text: "تقييمات وتعليقات المرضى" },
           ].map((item, i) => (
-            <View
-              key={i}
-              className="flex-row-reverse items-center gap-3 bg-surface-secondary rounded-2xl px-4 py-3"
-            >
+            <View key={i} className="flex-row-reverse items-center gap-3 bg-surface-secondary rounded-2xl px-4 py-3">
               <Text style={{ fontSize: 22 }}>{item.icon}</Text>
-              <Text.Paragraph
-                type="body-sm"
-                weight="medium"
-                align="end"
-                className="flex-1"
-              >
+              <Text.Paragraph type="body-sm" weight="medium" align="end" className="flex-1">
                 {item.text}
               </Text.Paragraph>
             </View>
@@ -71,43 +55,26 @@ export default function Login() {
         </View>
       </View>
 
-      {/* Bottom section — CTA */}
       <View className="px-6 pb-8 gap-4">
-        {/* Error */}
         {error && (
           <View className="bg-danger/10 rounded-2xl px-4 py-3">
-            <Text.Paragraph
-              type="body-sm"
-              align="center"
-              className="text-danger"
-            >
+            <Text.Paragraph type="body-sm" align="center" className="text-danger">
               {error}
             </Text.Paragraph>
           </View>
         )}
 
-        {/* Google sign-in button */}
-        <Button
-          variant="primary"
-          size="lg"
-          isDisabled={isLoading}
-          onPress={signIn}
-          className="w-full"
-          feedbackVariant="scale-ripple"
-        >
+        <Button variant="primary" size="lg" isDisabled={isLoading} onPress={signIn} className="w-full" feedbackVariant="scale-ripple">
           {isLoading ? (
             <Spinner color={accentForeground} />
           ) : (
             <>
               <GoogleIcon size={22} />
-              <Button.Label className="font-bold">
-                تسجيل الدخول بجوجل
-              </Button.Label>
+              <Button.Label className="font-bold">تسجيل الدخول بجوجل</Button.Label>
             </>
           )}
         </Button>
 
-        {/* Terms */}
         <Text.Paragraph type="body-xs" color="muted" align="center">
           بالمتابعة، أنت توافق على شروط الاستخدام وسياسة الخصوصية
         </Text.Paragraph>

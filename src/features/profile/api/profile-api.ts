@@ -1,17 +1,17 @@
 import { api } from "@/src/services/api";
 
-export type User = {
-  email: string;
-  fullName: string;
-  imageUrl: string | null;
-};
-
 const BASE = api.defaults.baseURL || "http://localhost:5170";
 
 function toAbsolute(url: string | null): string | null {
   if (!url || !url.startsWith("/uploads/")) return url;
   return `${BASE}${url}`;
 }
+
+export type User = {
+  email: string;
+  fullName: string;
+  imageUrl: string | null;
+};
 
 export const getMe = async () => {
   const res = await api.get<User>("/users/me");
@@ -23,15 +23,14 @@ export const updateMe = async (data: { fullName: string; imageUri?: string | nul
   formData.append("fullName", data.fullName);
 
   if (data.imageUri) {
-    const filename = data.imageUri.split("/").pop() || "photo.jpg";
-    const ext = filename.split(".").pop()?.toLowerCase() || "jpg";
-    const mimeType =
-      ext === "png" ? "image/png" : ext === "webp" ? "image/webp" : "image/jpeg";
+    const name = data.imageUri.split("/").pop() || "photo.jpg";
+    const ext = name.split(".").pop()?.toLowerCase() || "jpg";
+    const mime: Record<string, string> = { png: "image/png", webp: "image/webp" };
 
     formData.append("image", {
       uri: data.imageUri,
-      type: mimeType,
-      name: filename,
+      type: mime[ext] || "image/jpeg",
+      name,
     } as any);
   }
 

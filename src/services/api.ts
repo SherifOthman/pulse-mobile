@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../config/constants";
-import { useAuthStore } from "../stores/auth-store";
+import { useAuthStore } from "../features/auth/store/auth-store";
 
 export const api = axios.create({
   baseURL: API_URL || "http://localhost:5170",

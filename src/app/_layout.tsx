@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { useThemeColor } from "heroui-native";
 import { useEffect, useState } from "react";
 import Providers from "../Providers";
-import { useAuthStore } from "../stores/auth-store";
+import { useAuthStore } from "../features/auth/store/auth-store";
 
 export default function RootLayout() {
   const [background] = useThemeColor(["background"]);

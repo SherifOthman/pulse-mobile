@@ -1,12 +1,12 @@
 import { env } from "@/src/config/env";
-import { useAuthStore } from "@/src/stores/auth-store";
 import { router } from "expo-router";
 import { useState, useCallback } from "react";
 import {
   GoogleSignin,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
-import { loginWithGoogle } from "./auth-api";
+import { loginWithGoogle } from "../api/auth-api";
+import { useAuthStore } from "../store/auth-store";
 
 GoogleSignin.configure({
   webClientId: env.googleWebClientId,

@@ -1,7 +1,7 @@
-﻿import { useMe } from "@/src/features/profile/profile-queries";
-import { ProfileHeader } from "@/src/features/profile/components/profile-header";
+﻿import { ProfileHeader } from "@/src/features/profile/components/profile-header";
 import { ProfileMenu } from "@/src/features/profile/components/profile-menu";
-import { useAuthStore } from "@/src/stores/auth-store";
+import { useMe } from "@/src/features/profile/hooks/use-profile";
+import { useAuthStore } from "@/src/features/auth/store/auth-store";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
 import { Skeleton } from "heroui-native";
