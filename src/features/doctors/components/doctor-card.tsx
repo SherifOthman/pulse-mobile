@@ -1,24 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Avatar,
-  Chip,
-  Surface,
-  Typography,
-} from "heroui-native";
+import { Avatar, Chip, Surface, Typography } from "heroui-native";
 import { Pressable, View } from "react-native";
 
 export interface DoctorCardProps {
   name: string;
   specialization: string;
   profileImageUrl?: string | null;
-  visitPrice: number;
+  visitPrice?: number | null;
   governorate: string;
-  averageRating: number;
-  totalRatings: number;
+  averageRating?: number | null;
+  totalRatings?: number | null;
   isOpen: boolean;
   todaySchedule: string;
-  onToggleFavorite?: () => void;
-  isFavorite?: boolean;
+  onToggleFavorite: () => void;
+  isFavorite: boolean;
   className?: string;
 }
 
@@ -49,18 +44,16 @@ export function DoctorCard({
           )}
         </Avatar>
 
-        <View className="flex-1 gap-1">
-          <View className="flex-row-reverse relative items-center gap-2">
+        <View className="flex-1 gap-1 ">
+          <View className="flex-row-reverse items-center gap-2 justify-between">
             <Typography.Paragraph weight="bold">{name}</Typography.Paragraph>
-            {onToggleFavorite && (
-              <Pressable className="absolute left-2" onPress={onToggleFavorite}>
-                <Ionicons
-                  name={isFavorite ? "heart" : "heart-outline"}
-                  size={20}
-                  color={isFavorite ? "#ef4444" : "#888"}
-                />
-              </Pressable>
-            )}
+            <Pressable onPress={onToggleFavorite} className="ml-2">
+              <Ionicons
+                name={isFavorite ? "heart" : "heart-outline"}
+                size={22}
+                color={isFavorite ? "#ef4444" : "#888"}
+              />
+            </Pressable>
           </View>
 
           <View className="flex-row-reverse gap-2">
@@ -85,10 +78,10 @@ export function DoctorCard({
                 weight="semibold"
                 style={{ color: "#facc15" }}
               >
-                {averageRating.toFixed(1)}
+                {averageRating != null ? averageRating.toFixed(1) : "0"}
               </Typography.Paragraph>
               <Typography.Paragraph type="body-xs" color="muted">
-                ({totalRatings})
+                ({totalRatings ?? 0})
               </Typography.Paragraph>
             </View>
           </View>
@@ -102,12 +95,14 @@ export function DoctorCard({
             {governorate}
           </Typography.Paragraph>
         </View>
-        <View className="flex-row-reverse items-center gap-1">
-          <Ionicons name="cash-outline" size={14} color="#888" />
-          <Typography.Paragraph type="body-xs" color="muted">
-            {visitPrice.toLocaleString("ar-EG")} ج.م
-          </Typography.Paragraph>
-        </View>
+        {visitPrice != null && (
+          <View className="flex-row-reverse items-center gap-1">
+            <Ionicons name="cash-outline" size={14} color="#888" />
+            <Typography.Paragraph type="body-xs" color="muted">
+              {visitPrice.toLocaleString("ar-EG")} ج.م
+            </Typography.Paragraph>
+          </View>
+        )}
       </View>
 
       {todaySchedule ? (

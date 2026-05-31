@@ -14,6 +14,7 @@ type Props = {
   emptyView?: ReactNode;
   errorView?: ReactNode;
   className?: string;
+  bottomPadding?: number;
 };
 
 export function ScreenWrapper({
@@ -27,12 +28,13 @@ export function ScreenWrapper({
   emptyView,
   errorView,
   className = "",
+  bottomPadding,
 }: Props) {
   const insets = useSafeAreaInsets();
   const [muted] = useThemeColor(["muted"]);
 
   const topPadding = insets.top + (isTabPage ? 16 : 12);
-  const bottomPadding = isTabPage ? insets.bottom + 100 : insets.bottom + 40;
+  const bottomPaddingVal = bottomPadding ?? (isTabPage ? insets.bottom + 100 : insets.bottom + 40);
 
   const stateView = isLoading
     ? (loadingView ?? (
@@ -64,7 +66,7 @@ export function ScreenWrapper({
     return (
       <View
         className={`flex-1 bg-background px-5 ${className}`}
-        style={{ paddingTop: topPadding, paddingBottom: bottomPadding }}
+        style={{ paddingTop: topPadding, paddingBottom: bottomPaddingVal }}
       >
         {content}
       </View>
@@ -77,7 +79,7 @@ export function ScreenWrapper({
       contentContainerStyle={{
         flexGrow: 1,
         paddingTop: topPadding,
-        paddingBottom: bottomPadding,
+        paddingBottom: bottomPaddingVal,
       }}
       showsVerticalScrollIndicator={false}
     >
