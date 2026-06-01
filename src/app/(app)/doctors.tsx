@@ -54,8 +54,11 @@ export default function Doctors() {
             averageRating={item.averageRating}
             totalRatings={item.totalRatings}
             isOpen={item.isOpen}
-            todaySchedule={item.todaySchedule}
-            nextSchedule={item.nextSchedule}
+            todayStart={item.todayStart}
+            todayEnd={item.todayEnd}
+            nextDayOfWeek={item.nextDayOfWeek}
+            nextStart={item.nextStart}
+            nextEnd={item.nextEnd}
             isFavorite={favorites.has(item.id)}
             onToggleFavorite={() => toggleFavorite(item.id)}
             className="mt-4"

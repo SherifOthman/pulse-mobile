@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Avatar, Chip, Surface, Typography } from "heroui-native";
 import { Pressable, View } from "react-native";
+import { formatSchedule } from "../../../utils/arabic";
 
 export interface DoctorCardProps {
   name: string;
@@ -11,8 +12,11 @@ export interface DoctorCardProps {
   averageRating?: number | null;
   totalRatings?: number | null;
   isOpen: boolean;
-  todaySchedule: string;
-  nextSchedule: string;
+  todayStart: string | null;
+  todayEnd: string | null;
+  nextDayOfWeek: number | null;
+  nextStart: string | null;
+  nextEnd: string | null;
   onToggleFavorite: () => void;
   isFavorite: boolean;
   className?: string;
@@ -27,13 +31,17 @@ export function DoctorCard({
   averageRating,
   totalRatings,
   isOpen,
-  todaySchedule,
-  nextSchedule,
+  todayStart,
+  todayEnd,
+  nextDayOfWeek,
+  nextStart,
+  nextEnd,
   onToggleFavorite,
   isFavorite,
   className,
 }: DoctorCardProps) {
   const fallbackChar = name.replace(/^د\.?\s*/i, "").charAt(0);
+  const schedule = formatSchedule(isOpen, todayStart, todayEnd, nextDayOfWeek, nextStart, nextEnd);
 
   return (
     <Surface className={`px-3 py-3 ${className ?? ""}`.trim()}>
@@ -107,18 +115,11 @@ export function DoctorCard({
         )}
       </View>
 
-      {isOpen && todaySchedule ? (
+      {schedule ? (
         <View className="mt-2 flex-row-reverse items-center gap-1 border-t border-border pt-2">
           <Ionicons name="time-outline" size={14} color="#888" />
           <Typography.Paragraph type="body-xs">
-            من {todaySchedule}
-          </Typography.Paragraph>
-        </View>
-      ) : !isOpen && nextSchedule ? (
-        <View className="mt-2 flex-row-reverse items-center gap-1 border-t border-border pt-2">
-          <Ionicons name="time-outline" size={14} color="#888" />
-          <Typography.Paragraph type="body-xs">
-            {nextSchedule}
+            {schedule}
           </Typography.Paragraph>
         </View>
       ) : null}

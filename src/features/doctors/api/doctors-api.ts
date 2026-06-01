@@ -10,8 +10,11 @@ export type DoctorResponse = {
   averageRating: number;
   totalRatings: number;
   isOpen: boolean;
-  todaySchedule: string;
-  nextSchedule: string;
+  todayStart: string | null;
+  todayEnd: string | null;
+  nextDayOfWeek: number | null;
+  nextStart: string | null;
+  nextEnd: string | null;
 };
 
 export type PaginatedResponse<T> = {
@@ -29,7 +32,6 @@ export type DoctorsQuery = {
   sortBy?: string;
   sortDirection?: string;
   page?: number;
-  pageSize?: number;
   gender?: number;
   specializationId?: string;
 };
