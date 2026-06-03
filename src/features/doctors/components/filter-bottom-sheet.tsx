@@ -7,7 +7,7 @@ import {
   Select,
 } from "heroui-native";
 import { useCallback, useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   useCities,
   useGovernorates,
@@ -103,13 +103,15 @@ export function FilterBottomSheet({
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="bottom-sheet">
-                  {governorates?.map((g) => (
-                    <Select.Item key={g.id} value={g.id} label={g.name}>
-                      <Select.ItemIndicator />
-                      <Select.ItemLabel />
-                    </Select.Item>
-                  ))}
+                <Select.Content presentation="bottom-sheet" snapPoints={["95%"]}>
+                  <ScrollView>
+                    {governorates?.map((g) => (
+                      <Select.Item key={g.id} value={g.id} label={g.name}>
+                        <Select.ItemIndicator />
+                        <Select.ItemLabel />
+                      </Select.Item>
+                    ))}
+                  </ScrollView>
                 </Select.Content>
               </Select.Portal>
             </Select>
@@ -134,13 +136,15 @@ export function FilterBottomSheet({
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="bottom-sheet">
-                  {cities?.map((c) => (
-                    <Select.Item key={c.id} value={c.id} label={c.name}>
-                      <Select.ItemIndicator />
-                      <Select.ItemLabel />
-                    </Select.Item>
-                  ))}
+                <Select.Content presentation="bottom-sheet" snapPoints={["95%"]}>
+                  <ScrollView>
+                    {cities?.map((c) => (
+                      <Select.Item key={c.id} value={c.id} label={c.name}>
+                        <Select.ItemIndicator />
+                        <Select.ItemLabel />
+                      </Select.Item>
+                    ))}
+                  </ScrollView>
                 </Select.Content>
               </Select.Portal>
             </Select>
@@ -167,13 +171,15 @@ export function FilterBottomSheet({
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="bottom-sheet">
-                  {specializations?.map((s) => (
-                    <Select.Item key={s.id} value={s.id} label={s.name}>
-                      <Select.ItemIndicator />
-                      <Select.ItemLabel />
-                    </Select.Item>
-                  ))}
+                <Select.Content presentation="bottom-sheet" snapPoints={["95%"]}>
+                  <ScrollView>
+                    {specializations?.map((s) => (
+                      <Select.Item key={s.id} value={s.id} label={s.name}>
+                        <Select.ItemIndicator />
+                        <Select.ItemLabel />
+                      </Select.Item>
+                    ))}
+                  </ScrollView>
                 </Select.Content>
               </Select.Portal>
             </Select>
