@@ -74,7 +74,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
             </View>
 
             <Select value={selectedGovernorate ? { value: selectedGovernorate.id, label: selectedGovernorate.name } : undefined} onValueChange={(opt) => { setGovernorateId(opt?.value); setCityId(undefined); }}>
-              <Select.Trigger className="flex-row-reverse">
+              <Select.Trigger className="flex-row-reverse border border-border rounded-lg px-3 py-2.5">
                 <Select.Value placeholder="المحافظة" className="text-right flex-1" />
                 <Select.TriggerIndicator />
               </Select.Trigger>
@@ -83,6 +83,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
                 <Select.Content presentation="popover" width="trigger">
                   {governorates?.map((g) => (
                     <Select.Item key={g.id} value={g.id} label={g.name}>
+                      <Select.ItemLabel />
                       <Select.ItemIndicator />
                     </Select.Item>
                   ))}
@@ -95,7 +96,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               onValueChange={(opt) => setCityId(opt?.value)}
               isDisabled={!governorateId}
             >
-              <Select.Trigger className="flex-row-reverse">
+              <Select.Trigger className="flex-row-reverse border border-border rounded-lg px-3 py-2.5">
                 <Select.Value placeholder="المدينة" className="text-right flex-1" />
                 <Select.TriggerIndicator />
               </Select.Trigger>
@@ -104,6 +105,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
                 <Select.Content presentation="popover" width="trigger">
                   {cities?.map((c) => (
                     <Select.Item key={c.id} value={c.id} label={c.name}>
+                      <Select.ItemLabel />
                       <Select.ItemIndicator />
                     </Select.Item>
                   ))}
@@ -115,7 +117,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               value={specializationId && specializations?.find((s) => s.id === specializationId) ? { value: specializationId, label: specializations.find((s) => s.id === specializationId)!.name } : undefined}
               onValueChange={(opt) => setSpecializationId(opt?.value)}
             >
-              <Select.Trigger className="flex-row-reverse">
+              <Select.Trigger className="flex-row-reverse border border-border rounded-lg px-3 py-2.5">
                 <Select.Value placeholder="التخصص" className="text-right flex-1" />
                 <Select.TriggerIndicator />
               </Select.Trigger>
@@ -124,6 +126,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
                 <Select.Content presentation="popover" width="trigger">
                   {specializations?.map((s) => (
                     <Select.Item key={s.id} value={s.id} label={s.name}>
+                      <Select.ItemLabel />
                       <Select.ItemIndicator />
                     </Select.Item>
                   ))}
