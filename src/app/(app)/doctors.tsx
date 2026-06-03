@@ -7,7 +7,7 @@ import {
   Typography,
   useThemeColor,
 } from "heroui-native";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
 import { ScreenWrapper } from "../../components/ScreenWrapper";
 import { DoctorCard } from "../../features/doctors/components/doctor-card";
@@ -24,16 +24,6 @@ export default function Doctors() {
     refetch,
     isRefetching,
   } = useDoctors();
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
-
-  const toggleFavorite = (id: string) => {
-    setFavorites((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
 
   const allItems = data?.pages.flatMap((p) => p.items) ?? [];
 
@@ -45,71 +35,58 @@ export default function Doctors() {
 
   return (
     <ScreenWrapper isLoading={isLoading} isScrollable={false} bottomPadding={0}>
-      <FlatList
-        data={allItems}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        onEndReached={handleEndReached}
-        onEndReachedThreshold={0.3}
-        refreshControl={
-          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
-        }
-        renderItem={({ item }) => (
-          <DoctorCard
-            name={item.name}
-            specialization={item.specialization}
-            profileImageUrl={item.profileImageUrl}
-            visitPrice={item.visitPrice}
-            governorate={item.governorate}
-            averageRating={item.averageRating}
-            totalRatings={item.totalRatings}
-            isOpen={item.isOpen}
-            todayStart={item.todayStart}
-            todayEnd={item.todayEnd}
-            nextDayOfWeek={item.nextDayOfWeek}
-            nextStart={item.nextStart}
-            nextEnd={item.nextEnd}
-            isFavorite={favorites.has(item.id)}
-            onToggleFavorite={() => toggleFavorite(item.id)}
-            className="mt-4"
-          />
-        )}
-        ListHeaderComponent={
-          <View>
-            <View className="flex-row-reverse items-center justify-between">
-              <Typography.Heading type="h3">الاطباء</Typography.Heading>
+      <View className="flex-1">
+        <View className="flex-row-reverse items-center justify-between">
+          <Typography.Heading type="h3">الاطباء</Typography.Heading>
+          <Button variant="tertiary" size="sm" isIconOnly>
+            <Ionicons name="filter-outline" color={foreground} size={24} />
+          </Button>
+        </View>
 
-              <Button variant="tertiary" size="sm" isIconOnly>
-                <Ionicons name="filter-outline" color={foreground} size={24} />
-              </Button>
-            </View>
+        <Separator className="mt-3" />
 
-            <Separator className="mt-3" />
+        <SearchField className="mt-3 mb-2">
+          <SearchField.Group>
+            <SearchField.SearchIcon className="left-auto right-3" />
+            <SearchField.Input
+              className="pr-9 pl-12"
+              style={{ fontFamily: "Cairo" }}
+              textAlign="right"
+              placeholder="بحث..."
+            />
+            <SearchField.ClearButton className="right-auto left-3" />
+          </SearchField.Group>
+        </SearchField>
 
-            <SearchField className="mt-4">
-              <SearchField.Group>
-                <SearchField.SearchIcon className="left-auto right-3" />
-                <SearchField.Input
-                  className="pr-9 pl-12"
-                  style={{ fontFamily: "Cairo" }}
-                  textAlign="right"
-                  placeholder="بحث..."
-                />
-                <SearchField.ClearButton className="right-auto left-3" />
-              </SearchField.Group>
-            </SearchField>
-          </View>
-        }
-        ListFooterComponent={
-          isFetchingNextPage ? (
-            <View className="py-4 items-center">
-              <Spinner />
-            </View>
-          ) : (
-            <View className="h-6" />
-          )
-        }
-      />
+        <FlatList
+          data={allItems}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.3}
+          refreshControl={
+            <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+          }
+          renderItem={({ item }) => (
+            <DoctorCard
+              doctor={item}
+              isFavorite={false}
+              onToggleFavorite={() => {}}
+              className="mt-4"
+            />
+          )}
+          ListFooterComponent={
+            isFetchingNextPage ? (
+              <View className="py-4 items-center">
+                <Spinner />
+              </View>
+            ) : (
+              <View className="h-6" />
+            )
+          }
+          contentContainerStyle={{ paddingBottom: 16 }}
+        />
+      </View>
     </ScreenWrapper>
   );
 }

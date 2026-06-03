@@ -5,16 +5,14 @@ export type DoctorResponse = {
   name: string;
   specialization: string;
   profileImageUrl: string | null;
-  visitPrice: number;
+  visitPrice: number | null;
   governorate: string;
   averageRating: number;
   totalRatings: number;
+  nextWorkingDay: number;
+  startTime: string | null;
+  endTime: string | null;
   isOpen: boolean;
-  todayStart: string | null;
-  todayEnd: string | null;
-  nextDayOfWeek: number | null;
-  nextStart: string | null;
-  nextEnd: string | null;
 };
 
 export type PaginatedResponse<T> = {

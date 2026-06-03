@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { Spinner, Typography, useThemeColor } from "heroui-native";
+import type { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -34,7 +34,8 @@ export function ScreenWrapper({
   const [muted] = useThemeColor(["muted"]);
 
   const topPadding = insets.top + (isTabPage ? 16 : 12);
-  const bottomPaddingVal = bottomPadding ?? (isTabPage ? insets.bottom + 100 : insets.bottom + 40);
+  const bottomPaddingVal =
+    bottomPadding ?? (isTabPage ? insets.bottom + 100 : insets.bottom + 40);
 
   const stateView = isLoading
     ? (loadingView ?? (

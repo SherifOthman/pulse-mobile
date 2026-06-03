@@ -1,4 +1,4 @@
-const ARABIC_DAY_NAMES: Record<number, string> = {
+const DAY_NAMES: Record<number, string> = {
   0: "الأحد",
   1: "الإثنين",
   2: "الثلاثاء",
@@ -8,11 +8,7 @@ const ARABIC_DAY_NAMES: Record<number, string> = {
   6: "السبت",
 };
 
-export function getArabicDayName(dayOfWeek: number): string {
-  return ARABIC_DAY_NAMES[dayOfWeek] ?? "";
-}
-
-export function formatTime(hour: number, minute: number): string {
+function formatTime(hour: number, minute: number): string {
   const period = hour < 12 ? "صباحاً" : "مساءً";
   const h12 = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
   return minute === 0
@@ -20,38 +16,21 @@ export function formatTime(hour: number, minute: number): string {
     : `${h12}:${String(minute).padStart(2, "0")} ${period}`;
 }
 
-function parseTime(timeStr: string): { hour: number; minute: number } | null {
-  const parts = timeStr.split(":");
-  if (parts.length < 2) return null;
-  return { hour: parseInt(parts[0], 10), minute: parseInt(parts[1], 10) };
-}
-
 export function formatSchedule(
+  nextWorkingDay: number,
+  startTime: string | null,
+  endTime: string | null,
   isOpen: boolean,
-  todayStart: string | null,
-  todayEnd: string | null,
-  nextDayOfWeek: number | null,
-  nextStart: string | null,
-  nextEnd: string | null,
 ): string {
-  if (isOpen && todayStart && todayEnd) {
-    const s = parseTime(todayStart);
-    const e = parseTime(todayEnd);
-    if (!s || !e) return "";
-    return `من ${formatTime(s.hour, s.minute)} - ${formatTime(e.hour, e.minute)}`;
-  }
+  if (!startTime || !endTime) return "";
 
-  if (!isOpen && nextDayOfWeek != null && nextStart && nextEnd) {
-    const s = parseTime(nextStart);
-    const e = parseTime(nextEnd);
-    if (!s || !e) return "";
+  const [sh, sm] = startTime.split(":").map(Number);
+  const [eh, em] = endTime.split(":").map(Number);
+  const range = `من ${formatTime(sh, sm)} - ${formatTime(eh, em)}`;
 
-    const today = new Date().getUTCDay();
-    const diff = (nextDayOfWeek - today + 7) % 7;
-    const prefix = diff === 1 ? "غداً" : getArabicDayName(nextDayOfWeek);
+  if (isOpen) return range;
 
-    return `${prefix}: ${formatTime(s.hour, s.minute)} - ${formatTime(e.hour, e.minute)}`;
-  }
-
-  return "";
+  const today = new Date().getUTCDay();
+  const diff = (nextWorkingDay - today + 7) % 7;
+  return `${diff === 1 ? "غداً" : DAY_NAMES[nextWorkingDay]}: ${range}`;
 }
