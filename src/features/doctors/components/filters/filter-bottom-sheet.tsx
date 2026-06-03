@@ -80,11 +80,11 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="popover" width="trigger">
+                <Select.Content presentation="dialog">
                   {governorates?.map((g) => (
                     <Select.Item key={g.id} value={g.id} label={g.name}>
-                      <Select.ItemLabel />
                       <Select.ItemIndicator />
+                      <Select.ItemLabel />
                     </Select.Item>
                   ))}
                 </Select.Content>
@@ -102,11 +102,11 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="popover" width="trigger">
+                <Select.Content presentation="dialog">
                   {cities?.map((c) => (
                     <Select.Item key={c.id} value={c.id} label={c.name}>
-                      <Select.ItemLabel />
                       <Select.ItemIndicator />
+                      <Select.ItemLabel />
                     </Select.Item>
                   ))}
                 </Select.Content>
@@ -123,11 +123,11 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               </Select.Trigger>
               <Select.Portal>
                 <Select.Overlay />
-                <Select.Content presentation="popover" width="trigger">
+                <Select.Content presentation="dialog">
                   {specializations?.map((s) => (
                     <Select.Item key={s.id} value={s.id} label={s.name}>
-                      <Select.ItemLabel />
                       <Select.ItemIndicator />
+                      <Select.ItemLabel />
                     </Select.Item>
                   ))}
                 </Select.Content>
