@@ -17,6 +17,7 @@ import {
   type FilterState,
 } from "../../features/doctors/components/filter-bottom-sheet";
 import { useDoctors } from "../../features/doctors/hooks/use-doctors";
+import { useFavorites, useToggleFavorite } from "../../features/favorites/hooks/use-favorites";
 
 const hasActiveFilter = (filters: FilterState, search: string) =>
   !!(filters.governorateId || filters.cityId || filters.specializationId || filters.gender !== undefined || search);
@@ -51,6 +52,10 @@ export default function Doctors() {
 
   const allItems = data?.pages.flatMap((p) => p.items) ?? [];
   const isFiltered = hasActiveFilter(filters, debouncedSearchTerm);
+
+  const { data: favData } = useFavorites();
+  const toggleFav = useToggleFavorite();
+  const favSet = new Set(favData?.favorites?.map((f) => f.id) ?? []);
 
   const handleEndReached = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -104,8 +109,8 @@ export default function Doctors() {
           renderItem={({ item }) => (
             <DoctorCard
               doctor={item}
-              isFavorite={false}
-              onToggleFavorite={() => {}}
+              isFavorite={favSet.has(item.id)}
+              onToggleFavorite={() => toggleFav.mutate(item.id)}
               className="mt-4"
             />
           )}

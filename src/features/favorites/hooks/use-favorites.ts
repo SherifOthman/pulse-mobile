@@ -7,8 +7,6 @@ export type FavoriteListItem = {
   profileImageUrl: string | null;
   averageRating: number;
   totalRatings: number;
-  isOpenNow: boolean;
-  availabilityStatus: "open_now" | "open_later_today" | "closed_today_open_later" | "closed";
 };
 
 type FavoritesData = { favorites: FavoriteListItem[] };
@@ -49,18 +47,11 @@ export function useToggleFavorite() {
         const favorites = old.favorites ?? [];
         const isFav = favorites.some((d) => d.id === businessId);
         if (isFav) {
+          // Remove optimistically
           return { favorites: favorites.filter((d) => d.id !== businessId) };
         } else {
-          const placeholder: FavoriteListItem = {
-            id: businessId,
-            name: "",
-            profileImageUrl: null,
-            averageRating: 0,
-            totalRatings: 0,
-            isOpenNow: false,
-            availabilityStatus: "closed",
-          };
-          return { favorites: [...favorites, placeholder] };
+          // Add placeholder — name/image filled in after refetch
+          return { favorites: [...favorites, { id: businessId, name: "", profileImageUrl: null, averageRating: 0, totalRatings: 0 }] };
         }
       });
 
