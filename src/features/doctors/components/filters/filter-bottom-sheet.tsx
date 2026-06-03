@@ -69,11 +69,11 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
               <BottomSheet.Close />
               <Typography.Heading type="h3">تصفية</Typography.Heading>
               <Pressable onPress={handleReset}>
-                <Typography.Paragraph type="body-sm">إعادة تعيين</Typography.Paragraph>
+                <Typography.Paragraph type="body-sm" className="text-primary">إعادة تعيين</Typography.Paragraph>
               </Pressable>
             </View>
 
-            <Select value={selectedGovernorate ? { value: selectedGovernorate.id, label: selectedGovernorate.name } : undefined} onValueChange={(opt) => { setGovernorateId(opt?.value); setCityId(undefined); }}>
+             <Select presentation="dialog" value={selectedGovernorate ? { value: selectedGovernorate.id, label: selectedGovernorate.name } : undefined} onValueChange={(opt) => { setGovernorateId(opt?.value); setCityId(undefined); }}>
               <Select.Trigger className="flex-row-reverse border border-border rounded-lg px-3 py-2.5">
                 <Select.Value placeholder="المحافظة" className="text-right flex-1" />
                 <Select.TriggerIndicator />
@@ -92,6 +92,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
             </Select>
 
             <Select
+              presentation="dialog"
               value={cityId && cities?.find((c) => c.id === cityId) ? { value: cityId, label: cities.find((c) => c.id === cityId)!.name } : undefined}
               onValueChange={(opt) => setCityId(opt?.value)}
               isDisabled={!governorateId}
@@ -114,6 +115,7 @@ export function FilterBottomSheet({ isOpen, onOpenChange, filters, onApply }: Pr
             </Select>
 
             <Select
+              presentation="dialog"
               value={specializationId && specializations?.find((s) => s.id === specializationId) ? { value: specializationId, label: specializations.find((s) => s.id === specializationId)!.name } : undefined}
               onValueChange={(opt) => setSpecializationId(opt?.value)}
             >
