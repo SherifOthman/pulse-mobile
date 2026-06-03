@@ -101,14 +101,17 @@ export function FilterBottomSheet({
                 />
                 <Select.TriggerIndicator />
               </Select.Trigger>
-              <Select.Content presentation="bottom-sheet">
-                {governorates?.map((g) => (
-                  <Select.Item key={g.id} value={g.id} label={g.name}>
-                    <Select.ItemIndicator />
-                    <Select.ItemLabel />
-                  </Select.Item>
-                ))}
-              </Select.Content>
+              <Select.Portal>
+                <Select.Overlay />
+                <Select.Content presentation="bottom-sheet">
+                  {governorates?.map((g) => (
+                    <Select.Item key={g.id} value={g.id} label={g.name}>
+                      <Select.ItemIndicator />
+                      <Select.ItemLabel />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Portal>
             </Select>
 
             {/* City */}
@@ -129,14 +132,17 @@ export function FilterBottomSheet({
                 />
                 <Select.TriggerIndicator />
               </Select.Trigger>
-              <Select.Content presentation="bottom-sheet">
-                {cities?.map((c) => (
-                  <Select.Item key={c.id} value={c.id} label={c.name}>
-                    <Select.ItemIndicator />
-                    <Select.ItemLabel />
-                  </Select.Item>
-                ))}
-              </Select.Content>
+              <Select.Portal>
+                <Select.Overlay />
+                <Select.Content presentation="bottom-sheet">
+                  {cities?.map((c) => (
+                    <Select.Item key={c.id} value={c.id} label={c.name}>
+                      <Select.ItemIndicator />
+                      <Select.ItemLabel />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Portal>
             </Select>
 
             {/* Specialization */}
@@ -159,14 +165,17 @@ export function FilterBottomSheet({
                 />
                 <Select.TriggerIndicator />
               </Select.Trigger>
-              <Select.Content presentation="bottom-sheet">
-                {specializations?.map((s) => (
-                  <Select.Item key={s.id} value={s.id} label={s.name}>
-                    <Select.ItemIndicator />
-                    <Select.ItemLabel />
-                  </Select.Item>
-                ))}
-              </Select.Content>
+              <Select.Portal>
+                <Select.Overlay />
+                <Select.Content presentation="bottom-sheet">
+                  {specializations?.map((s) => (
+                    <Select.Item key={s.id} value={s.id} label={s.name}>
+                      <Select.ItemIndicator />
+                      <Select.ItemLabel />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Portal>
             </Select>
 
             {/* Gender — RadioGroup instead of manual toggle buttons */}
