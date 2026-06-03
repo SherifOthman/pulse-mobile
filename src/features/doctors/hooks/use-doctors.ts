@@ -12,5 +12,6 @@ export function useDoctors(query: DoctorsQuery = {}) {
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.page + 1 : undefined,
     initialPageParam: 1,
+    placeholderData: (previousData) => previousData,
   });
 }
