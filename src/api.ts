@@ -3,7 +3,7 @@ import { env } from "./env";
 import { useAuthStore } from "./features/auth/auth-store";
 
 export const api = axios.create({
-  baseURL: env.apiUrl || "http://localhost:5170/mobile",
+  baseURL: `${env.apiUrl}/mobile`,
 });
 
 let refreshPromise: Promise<void> | null = null;

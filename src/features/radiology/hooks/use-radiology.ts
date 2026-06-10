@@ -1,5 +1,5 @@
 import { useBusinessList } from "@/src/features/businesses/hooks/use-business-list";
-import type { RadiologyQuery, RadiologyResponse } from "./radiology-api";
+import type { RadiologyQuery, RadiologyResponse } from "../radiology-api";
 
 export type { RadiologyQuery, RadiologyResponse };
 

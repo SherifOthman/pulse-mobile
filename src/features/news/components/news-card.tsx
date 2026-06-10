@@ -3,8 +3,8 @@ import { Card, Chip, PressableFeedback, Separator, Surface, Typography, useTheme
 import { Image } from "expo-image";
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import type { NewsArticle } from "./news-api";
-import { formatNewsDate } from "./format-date";
+import type { NewsArticle } from "../news-api";
+import { formatNewsDate } from "../format-date";
 
 type Props = {
   article: NewsArticle;

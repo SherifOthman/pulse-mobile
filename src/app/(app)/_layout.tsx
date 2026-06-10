@@ -21,7 +21,6 @@ export default function AppLayout() {
       <Stack.Screen name="favorites" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="edit-profile" />
-      <Stack.Screen name="favorites" />
     </Stack>
   );
 }

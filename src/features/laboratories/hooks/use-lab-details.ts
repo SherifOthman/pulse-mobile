@@ -1,5 +1,5 @@
 import { useBusinessDetails } from "@/src/features/businesses/hooks/use-business-details";
-import type { LabDetailsResponse } from "./labs-api";
+import type { LabDetailsResponse } from "../labs-api";
 
 export type { LabDetailsResponse };
 

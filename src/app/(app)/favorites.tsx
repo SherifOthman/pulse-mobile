@@ -1,7 +1,7 @@
 import { PageHeader } from "@/src/components/PageHeader";
 import type { FavoriteItem } from "@/src/features/favorites/api/favorites-api";
 import { useFavorites } from "@/src/features/favorites/hooks/use-favorites";
-import { nameInitial } from "@/src/utils/arabic";
+import { nameInitial } from "@/src/arabic";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {

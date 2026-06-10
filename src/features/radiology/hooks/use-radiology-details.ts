@@ -1,5 +1,5 @@
 import { useBusinessDetails } from "@/src/features/businesses/hooks/use-business-details";
-import type { RadiologyDetailsResponse } from "./radiology-api";
+import type { RadiologyDetailsResponse } from "../radiology-api";
 
 export type { RadiologyDetailsResponse };
 

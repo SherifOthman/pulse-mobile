@@ -1,5 +1,5 @@
 import { useBusinessList } from "@/src/features/businesses/hooks/use-business-list";
-import type { LabResponse, LabsQuery } from "./labs-api";
+import type { LabResponse, LabsQuery } from "../labs-api";
 
 export type { LabResponse, LabsQuery };
 

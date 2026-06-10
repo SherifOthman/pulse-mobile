@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getReviews } from "./reviews-api";
+import { getReviews } from "../reviews-api";
 
 export function useReviews(businessId: string) {
   return useInfiniteQuery({

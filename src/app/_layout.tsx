@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import Providers from "../Providers";
-import { useAuthStore } from "../features/auth/store/auth-store";
+import { useAuthStore } from "../features/auth/auth-store";
 import { useThemeColor } from "heroui-native";
 import { useUniwind } from "uniwind";
 

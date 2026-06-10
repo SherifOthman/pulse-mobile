@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Card, Chip, PressableFeedback, Typography, useThemeColor } from "heroui-native";
 import { Image } from "expo-image";
 import { View, StyleSheet } from "react-native";
-import type { NewsArticle } from "./news-api";
-import { formatNewsDate } from "./format-date";
+import type { NewsArticle } from "../news-api";
+import { formatNewsDate } from "../format-date";
 
 type Props = {
   article: NewsArticle;
