@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { getImageUrl } from "@/src/get-image-url";
 import { Avatar, Card, PressableFeedback, Typography, useThemeColor } from "heroui-native";
 import { TouchableOpacity, View } from "react-native";
 
@@ -33,7 +34,7 @@ export function FavoriteCard({
           <Card.Body className="flex-row-reverse gap-3 p-3">
             <Avatar size="lg">
               {profileImageUrl ? (
-                <Avatar.Image source={{ uri: profileImageUrl }} />
+                <Avatar.Image source={{ uri: getImageUrl(profileImageUrl)! }} />
               ) : (
                 <Avatar.Fallback>{fallbackChar}</Avatar.Fallback>
               )}

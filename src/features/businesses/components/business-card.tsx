@@ -1,5 +1,6 @@
 import type { BusinessListItem } from "@/src/types";
 import { formatSchedule, nameInitial } from "@/src/arabic";
+import { getImageUrl } from "@/src/get-image-url";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Avatar,
@@ -46,7 +47,7 @@ export function BusinessCard({
             <View className="flex-row-reverse gap-3">
               <Avatar size="lg">
                 {item.profileImageUrl ? (
-                  <Avatar.Image source={{ uri: item.profileImageUrl }} />
+                  <Avatar.Image source={{ uri: getImageUrl(item.profileImageUrl)! }} />
                 ) : (
                   <Avatar.Fallback>{nameInitial(item.name)}</Avatar.Fallback>
                 )}

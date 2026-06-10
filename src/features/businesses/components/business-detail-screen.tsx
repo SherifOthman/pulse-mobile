@@ -7,6 +7,7 @@ import { ReviewForm } from "@/src/features/reviews/components/ReviewForm";
 import { useSubmitReview } from "@/src/features/reviews/hooks/use-submit-review";
 import type { BranchDetail, BusinessDetails } from "@/src/types";
 import { nameInitial } from "@/src/arabic";
+import { getImageUrl } from "@/src/get-image-url";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
@@ -102,7 +103,7 @@ export function BusinessDetailScreen({
             <View className="w-full relative">
               {data.coverImageUrl ? (
                 <Image
-                  source={{ uri: data.coverImageUrl }}
+                  source={{ uri: getImageUrl(data.coverImageUrl)! }}
                   style={{ width: "100%", height: 208 }}
                   contentFit="cover"
                   transition={200}
@@ -143,7 +144,7 @@ export function BusinessDetailScreen({
               <View className="items-end">
                 <Avatar size="lg" className="border-2 border-background">
                   {data.profileImageUrl ? (
-                    <Avatar.Image source={{ uri: data.profileImageUrl }} />
+                    <Avatar.Image source={{ uri: getImageUrl(data.profileImageUrl)! }} />
                   ) : (
                     <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
                   )}

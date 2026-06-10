@@ -2,6 +2,7 @@ import { PageHeader } from "@/src/components/PageHeader";
 import type { FavoriteItem } from "@/src/features/favorites/api/favorites-api";
 import { useFavorites } from "@/src/features/favorites/hooks/use-favorites";
 import { nameInitial } from "@/src/arabic";
+import { getImageUrl } from "@/src/get-image-url";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
@@ -39,7 +40,7 @@ function FavoriteRow({ item }: { item: FavoriteItem }) {
         <View className="flex-row-reverse items-center gap-3 px-5 py-3.5">
           <Avatar size="md">
             {item.profileImageUrl ? (
-              <Avatar.Image source={{ uri: item.profileImageUrl }} />
+              <Avatar.Image source={{ uri: getImageUrl(item.profileImageUrl)! }} />
             ) : (
               <Avatar.Fallback>{nameInitial(item.name)}</Avatar.Fallback>
             )}

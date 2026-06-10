@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Avatar, Button, Card, Chip, Typography, useThemeColor } from "heroui-native";
 import { View } from "react-native";
 import { nameInitial } from "@/src/arabic";
+import { getImageUrl } from "@/src/get-image-url";
 import type { DoctorDetailsResponse } from "../api/doctor-details-api";
 
 type Props = {
@@ -17,7 +18,7 @@ export function DoctorDetailHeader({ data, onToggleFavorite }: Props) {
       <Card.Body className="flex-row-reverse gap-4 p-4 items-center">
         <Avatar size="lg">
           {data.profileImageUrl ? (
-            <Avatar.Image source={{ uri: data.profileImageUrl }} />
+            <Avatar.Image source={{ uri: getImageUrl(data.profileImageUrl)! }} />
           ) : (
             <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
           )}
