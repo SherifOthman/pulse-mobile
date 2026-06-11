@@ -7,7 +7,7 @@ import {
 } from "@/src/features/doctors/components/filter-bottom-sheet";
 import { SortPills } from "@/src/features/doctors/components/sort-pills";
 import { useDoctors } from "@/src/features/doctors/hooks/use-doctors";
-import { useDebunce } from "@/src/useDebunce";
+import { useDebounce } from "@/src/useDebounce";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
@@ -40,7 +40,7 @@ const hasAnyFilter = (f: FilterState, search: string) =>
 export default function Doctors() {
   const foreground = useThemeColor("foreground");
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearch = useDebunce(searchTerm, 300);
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
   const [sortBy, setSortBy] = useState<string>("name");

@@ -15,4 +15,4 @@ export const getFavorites = async (): Promise<FavoriteItem[]> => {
 };
 
 export const toggleFavorite = (businessId: string) =>
-  api.post<boolean>(`/favorites/${businessId}/toggle`);
+  api.post<void>(`/favorites/${businessId}/toggle`);

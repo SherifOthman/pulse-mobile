@@ -4,7 +4,6 @@ import type { BusinessDetails } from "@/src/types";
 /** Doctor-specific detail fields on top of BusinessDetails */
 export type DoctorDetailsResponse = BusinessDetails & {
   specialization: string;
-  visitPrice: number | null;
 };
 
 export const getDoctorDetails = async (id: string): Promise<DoctorDetailsResponse> => {

@@ -1,7 +1,7 @@
 import { NewsCard } from "@/src/features/news/components/news-card";
 import { NewsCardSkeletonList } from "@/src/features/news/components/news-skeleton";
 import { useNews } from "@/src/features/news/use-news";
-import { useDebunce } from "@/src/useDebunce";
+import { useDebounce } from "@/src/useDebounce";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
@@ -26,7 +26,7 @@ export default function News() {
   const insets = useSafeAreaInsets();
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearch = useDebunce(searchTerm, 300);
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const category = activeCategory === "all" ? undefined : activeCategory;
 
   const {

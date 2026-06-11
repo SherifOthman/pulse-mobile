@@ -1,3 +1,4 @@
+import { nameInitial } from "@/src/arabic";
 import { PageHeader } from "@/src/components/PageHeader";
 import { ScreenWrapper } from "@/src/components/ScreenWrapper";
 import { SectionBlock } from "@/src/components/SectionBlock";
@@ -5,9 +6,8 @@ import { LocationCard } from "@/src/features/businesses/components/location-card
 import { ReviewCard } from "@/src/features/reviews/components/ReviewCard";
 import { ReviewForm } from "@/src/features/reviews/components/ReviewForm";
 import { useSubmitReview } from "@/src/features/reviews/hooks/use-submit-review";
-import type { BranchDetail, BusinessDetails } from "@/src/types";
-import { nameInitial } from "@/src/arabic";
 import { getImageUrl } from "@/src/get-image-url";
+import type { BranchDetail, BusinessDetails } from "@/src/types";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
@@ -59,9 +59,15 @@ export function BusinessDetailScreen({
   const mainBranch: BranchDetail | null = data
     ? {
         id: data.id,
+        parentBusinessId: data.id,
         name: "الفرع الرئيسي",
         address: data.address,
-        profileImageUrl: null,
+        governorate: data.governorate,
+        city: data.city,
+        visitPrice: null,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        isOpen: data.isOpen,
         phoneNumbers: data.phoneNumbers,
         workingDays: data.workingDays,
       }
@@ -144,7 +150,9 @@ export function BusinessDetailScreen({
               <View className="items-end">
                 <Avatar size="lg" className="border-2 border-background">
                   {data.profileImageUrl ? (
-                    <Avatar.Image source={{ uri: getImageUrl(data.profileImageUrl)! }} />
+                    <Avatar.Image
+                      source={{ uri: getImageUrl(data.profileImageUrl)! }}
+                    />
                   ) : (
                     <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
                   )}

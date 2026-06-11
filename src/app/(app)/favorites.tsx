@@ -1,5 +1,5 @@
 import { PageHeader } from "@/src/components/PageHeader";
-import type { FavoriteItem } from "@/src/features/favorites/api/favorites-api";
+import type { FavoriteItem } from "@/src/features/favorites/favorites-api";
 import { useFavorites } from "@/src/features/favorites/hooks/use-favorites";
 import { nameInitial } from "@/src/arabic";
 import { getImageUrl } from "@/src/get-image-url";

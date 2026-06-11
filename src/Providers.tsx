@@ -11,7 +11,15 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import "./global.css";
 
-const client = new QueryClient();
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30_000,
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [loaded] = useFonts({

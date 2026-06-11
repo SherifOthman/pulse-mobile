@@ -1,6 +1,6 @@
-import type { BusinessListItem } from "@/src/types";
 import { formatSchedule, nameInitial } from "@/src/arabic";
 import { getImageUrl } from "@/src/get-image-url";
+import type { BusinessListItem } from "@/src/types";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Avatar,
@@ -47,7 +47,9 @@ export function BusinessCard({
             <View className="flex-row-reverse gap-3">
               <Avatar size="lg">
                 {item.profileImageUrl ? (
-                  <Avatar.Image source={{ uri: getImageUrl(item.profileImageUrl)! }} />
+                  <Avatar.Image
+                    source={{ uri: getImageUrl(item.profileImageUrl)! }}
+                  />
                 ) : (
                   <Avatar.Fallback>{nameInitial(item.name)}</Avatar.Fallback>
                 )}
@@ -70,7 +72,7 @@ export function BusinessCard({
 
             {extraInfo}
 
-            {/* Row 2: location + visitPrice (right) | rating (left) */}
+            {/* Row 2: location (right) | rating (left) */}
             <View className="flex-row-reverse items-center justify-between">
               <View className="flex-row-reverse items-center gap-1">
                 <Ionicons
@@ -81,21 +83,6 @@ export function BusinessCard({
                 <Typography.Paragraph type="body-xs" color="muted">
                   {item.governorate}
                 </Typography.Paragraph>
-                {item.visitPrice != null && (
-                  <>
-                    <Typography.Paragraph type="body-xs" color="muted">
-                      -
-                    </Typography.Paragraph>
-                    <Ionicons
-                      name="cash-outline"
-                      size={14}
-                      color={mutedColor}
-                    />
-                    <Typography.Paragraph type="body-xs" color="muted">
-                      {item.visitPrice.toLocaleString("ar-EG")} ج.م
-                    </Typography.Paragraph>
-                  </>
-                )}
               </View>
               <View className="flex-row-reverse items-center gap-1">
                 <Ionicons name="star" size={12} color="#facc15" />

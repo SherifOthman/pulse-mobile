@@ -3,7 +3,7 @@ import { LocationFilterSheet, type LocationFilter } from "@/src/features/busines
 import { DoctorsEmptyState } from "@/src/features/doctors/components/doctors-empty-state";
 import { PharmacyCard } from "@/src/features/pharmacies/pharmacy-card";
 import { usePharmacies } from "@/src/features/pharmacies/hooks/use-pharmacies";
-import { useDebunce } from "@/src/useDebunce";
+import { useDebounce } from "@/src/useDebounce";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Button, SearchField, Separator, Spinner, Typography, useThemeColor } from "heroui-native";
@@ -15,7 +15,7 @@ const EMPTY_FILTER: LocationFilter = { governorateId: undefined, cityId: undefin
 export default function Pharmacies() {
   const foreground = useThemeColor("foreground");
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearch = useDebunce(searchTerm, 300);
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<LocationFilter>(EMPTY_FILTER);
 

@@ -4,6 +4,7 @@ import { useAuthStore } from "./features/auth/auth-store";
 
 export const api = axios.create({
   baseURL: `${env.apiUrl}/mobile`,
+  withCredentials: true,
 });
 
 let refreshPromise: Promise<void> | null = null;
@@ -26,9 +27,15 @@ api.interceptors.response.use(
     }
 
     if (refreshPromise) {
-      await refreshPromise;
-      originalRequest.headers.Authorization = `Bearer ${useAuthStore.getState().accessToken}`;
-      return api(originalRequest);
+      // Wait for the in-flight refresh; reject this request if refresh fails.
+      return refreshPromise.then(
+        () => {
+          originalRequest._retry = true;
+          originalRequest.headers.Authorization = `Bearer ${useAuthStore.getState().accessToken}`;
+          return api(originalRequest);
+        },
+        () => Promise.reject(err),
+      );
     }
 
     originalRequest._retry = true;
@@ -40,9 +47,16 @@ api.interceptors.response.use(
         throw new Error("No refresh token available");
       }
 
-      const res = await axios.post(`${api.defaults.baseURL}/auth/refresh`, {
-        refreshToken: store.refreshToken,
-      });
+      // React Native doesn't manage cookies automatically.
+      // Send the refresh token in the Cookie header explicitly.
+      const res = await axios.post(
+        `${api.defaults.baseURL}/auth/refresh`,
+        {},
+        {
+          headers: { Cookie: `refreshToken=${store.refreshToken}` },
+          withCredentials: true,
+        },
+      );
 
       await store.setSession(res.data.accessToken, res.data.refreshToken);
     })();

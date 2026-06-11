@@ -21,9 +21,15 @@ export type PhoneNumberDetail = {
 
 export type BranchDetail = {
   id: string;
+  parentBusinessId: string;
   name: string;
   address: string | null;
-  profileImageUrl: string | null;
+  governorate: string | null;
+  city: string | null;
+  visitPrice: number | null;
+  latitude: number | null;
+  longitude: number | null;
+  isOpen: boolean;
   phoneNumbers: PhoneNumberDetail[];
   workingDays: WorkingDayDetail[];
 };
@@ -49,7 +55,6 @@ export type BusinessListItem = {
   startTime: string | null;
   endTime: string | null;
   isOpen: boolean;
-  visitPrice: number | null;
 };
 
 /** Base fields every business type returns in details */

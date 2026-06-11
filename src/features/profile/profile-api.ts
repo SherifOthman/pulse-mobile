@@ -1,10 +1,9 @@
 import { api } from "@/src/api";
-
-const SERVER_ORIGIN = "http://localhost:5170";
+import { env } from "@/src/env";
 
 function toAbsolute(url: string | null): string | null {
   if (!url || !url.startsWith("/uploads/")) return url;
-  return `${SERVER_ORIGIN}${url}`;
+  return `${env.baseUrl}${url}`;
 }
 
 export type User = {
