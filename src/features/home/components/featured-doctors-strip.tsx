@@ -1,8 +1,8 @@
+import { DoctorCard } from "@/src/features/doctors/components/doctor-card";
+import { useDoctors } from "@/src/features/doctors/hooks/use-doctors";
 import { router } from "expo-router";
 import { Card, Separator, Skeleton } from "heroui-native";
 import { FlatList, View } from "react-native";
-import { DoctorCard } from "@/src/features/doctors/components/doctor-card";
-import { useDoctors } from "@/src/features/doctors/hooks/use-doctors";
 import { SectionHeader } from "./section-header";
 
 function DoctorStripSkeleton() {
@@ -32,7 +32,7 @@ export function FeaturedDoctorsStrip() {
   return (
     <View>
       <SectionHeader
-        title="الأطباء المتاحون"
+        title="الأطباء المتاحون "
         onSeeAll={() => router.push("/(app)/(tabs)/doctors" as any)}
       />
       {isLoading ? (

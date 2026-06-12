@@ -73,6 +73,7 @@ export type BusinessDetails = {
   totalRatings: number;
   isFavorite: boolean;
   hasUserReviewed: boolean;
+  isOpen: boolean;
   workingDays: WorkingDayDetail[];
   phoneNumbers: PhoneNumberDetail[];
   branches: BranchDetail[];

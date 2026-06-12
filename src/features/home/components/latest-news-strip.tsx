@@ -1,8 +1,8 @@
-import { router } from "expo-router";
-import { FlatList, View } from "react-native";
-import { useNews } from "@/src/features/news/use-news";
 import { NewsCardHorizontal } from "@/src/features/news/components/news-card-horizontal";
 import { NewsCardHorizontalSkeleton } from "@/src/features/news/components/news-skeleton";
+import { useNews } from "@/src/features/news/use-news";
+import { router } from "expo-router";
+import { FlatList, View } from "react-native";
 import { SectionHeader } from "./section-header";
 
 export function LatestNewsStrip() {
@@ -12,7 +12,7 @@ export function LatestNewsStrip() {
   return (
     <View>
       <SectionHeader
-        title="آخر الأخبار"
+        title="آخر الأخبار "
         onSeeAll={() => router.push("/(app)/(tabs)/news" as any)}
       />
       {isLoading ? (

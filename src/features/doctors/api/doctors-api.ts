@@ -4,6 +4,7 @@ import type { BusinessListItem, BusinessQuery, PaginatedResponse } from "@/src/t
 /** Doctor-specific list fields on top of BusinessListItem */
 export type DoctorResponse = BusinessListItem & {
   specialization: string;
+  visitPrice: number | null;
 };
 
 export type DoctorsQuery = BusinessQuery & {
