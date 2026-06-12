@@ -17,8 +17,6 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
  * Tap the image or the X button to close.
  */
 export function ImagePreviewModal({ uri, isOpen, onClose, alt }: Props) {
-  if (!uri) return null;
-
   return (
     <Dialog isOpen={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
       <Dialog.Portal>
@@ -42,19 +40,21 @@ export function ImagePreviewModal({ uri, isOpen, onClose, alt }: Props) {
             </Pressable>
           </View>
 
-          {/* Image */}
-          <Pressable onPress={onClose} className="items-center justify-center">
-            <Image
-              source={{ uri }}
-              style={{
-                width: SCREEN_WIDTH - 32,
-                height: SCREEN_HEIGHT * 0.7,
-              }}
-              contentFit="contain"
-              accessibilityLabel={alt}
-              transition={200}
-            />
-          </Pressable>
+          {/* Image — only render when we actually have a URI */}
+          {uri && (
+            <Pressable onPress={onClose} className="items-center justify-center">
+              <Image
+                source={{ uri }}
+                style={{
+                  width: SCREEN_WIDTH - 32,
+                  height: SCREEN_HEIGHT * 0.7,
+                }}
+                contentFit="contain"
+                accessibilityLabel={alt}
+                transition={200}
+              />
+            </Pressable>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>
