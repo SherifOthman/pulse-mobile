@@ -26,13 +26,20 @@ export function useGoogleLogin() {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
       const signInResult = await GoogleSignin.signIn();
 
-      if (signInResult.type !== "success" || !signInResult.data.idToken) {
-        throw new Error(
-          `Sign in failed: type=${signInResult.type}, hasToken=${!!( signInResult as any)?.data?.idToken}`,
-        );
+      if (signInResult.type !== "success") {
+        throw new Error(`Sign in failed: type=${signInResult.type}`);
       }
 
-      const res = await loginWithGoogle(signInResult.data.idToken);
+      // signIn() can return a null idToken on some Android devices even with a
+      // valid webClientId. getTokens() always returns a non-null idToken.
+      const idToken =
+        signInResult.data.idToken ?? (await GoogleSignin.getTokens()).idToken;
+
+      if (!idToken) {
+        throw new Error("Could not obtain ID token from Google");
+      }
+
+      const res = await loginWithGoogle(idToken);
       await setSession(res.data.accessToken, res.data.refreshToken);
       router.replace("/(app)/(tabs)/home");
     } catch (err: any) {
