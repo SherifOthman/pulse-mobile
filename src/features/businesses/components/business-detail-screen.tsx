@@ -122,13 +122,12 @@ export function BusinessDetailScreen({
                   />
                 </Pressable>
               ) : (
-                <View className="w-full h-40 items-center justify-center bg-surface">
-                  <Ionicons
-                    name="business-outline"
-                    size={48}
-                    color={mutedColor}
-                  />
-                </View>
+                <Image
+                  source={require("../../../../assets/images/icon.png")}
+                  style={{ width: "100%", height: 208 }}
+                  contentFit="cover"
+                  transition={200}
+                />
               )}
 
               <View className="absolute top-3 left-3">
@@ -157,8 +156,9 @@ export function BusinessDetailScreen({
               <View className="items-end">
                 <Pressable
                   onPress={() =>
-                    data.profileImageUrl &&
-                    setPreviewUri(getImageUrl(data.profileImageUrl)!)
+                    data.profileImageUrl
+                      ? setPreviewUri(getImageUrl(data.profileImageUrl)!)
+                      : setPreviewUri(null)
                   }
                   accessibilityLabel="عرض الصورة الشخصية"
                 >
@@ -168,7 +168,9 @@ export function BusinessDetailScreen({
                         source={{ uri: getImageUrl(data.profileImageUrl)! }}
                       />
                     ) : (
-                      <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
+                      <Avatar.Image
+                        source={require("../../../../assets/images/icon.png")}
+                      />
                     )}
                   </Avatar>
                 </Pressable>
