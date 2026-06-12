@@ -11,7 +11,6 @@ import { useAuthStore } from "./auth-store";
 GoogleSignin.configure({
   webClientId: env.googleWebClientId,
   iosClientId: env.googleIosClientId,
-  androidClientId: env.googleAndroidClientId,
 });
 
 export function useGoogleLogin() {
@@ -25,13 +24,13 @@ export function useGoogleLogin() {
 
     try {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const user = await GoogleSignin.signIn();
+      const signInResult = await GoogleSignin.signIn();
 
-      if (!user.idToken) {
+      if (signInResult.type !== "success" || !signInResult.data.idToken) {
         throw new Error("Sign in failed or no ID token received");
       }
 
-      const res = await loginWithGoogle(user.idToken);
+      const res = await loginWithGoogle(signInResult.data.idToken);
       await setSession(res.data.accessToken, res.data.refreshToken);
       router.replace("/(app)/(tabs)/home");
     } catch (err: any) {

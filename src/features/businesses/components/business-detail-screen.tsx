@@ -2,6 +2,7 @@ import { nameInitial } from "@/src/arabic";
 import { PageHeader } from "@/src/components/PageHeader";
 import { ScreenWrapper } from "@/src/components/ScreenWrapper";
 import { SectionBlock } from "@/src/components/SectionBlock";
+import { ImagePreviewModal } from "@/src/components/ImagePreviewModal";
 import { LocationCard } from "@/src/features/businesses/components/location-card";
 import { ReviewCard } from "@/src/features/reviews/components/ReviewCard";
 import { ReviewForm } from "@/src/features/reviews/components/ReviewForm";
@@ -47,6 +48,7 @@ export function BusinessDetailScreen({
     "accent",
   ]);
   const [reviewFormVisible, setReviewFormVisible] = useState(false);
+  const [previewUri, setPreviewUri] = useState<string | null>(null);
   const submitReview = useSubmitReview(queryKey);
 
   const handleSubmitReview = async (rating: number, text: string) => {
@@ -108,12 +110,17 @@ export function BusinessDetailScreen({
             {/* ── Cover ─────────────────────────────────────── */}
             <View className="w-full relative">
               {data.coverImageUrl ? (
-                <Image
-                  source={{ uri: getImageUrl(data.coverImageUrl)! }}
-                  style={{ width: "100%", height: 208 }}
-                  contentFit="cover"
-                  transition={200}
-                />
+                <Pressable
+                  onPress={() => setPreviewUri(getImageUrl(data.coverImageUrl)!)}
+                  accessibilityLabel="عرض صورة الغلاف"
+                >
+                  <Image
+                    source={{ uri: getImageUrl(data.coverImageUrl)! }}
+                    style={{ width: "100%", height: 208 }}
+                    contentFit="cover"
+                    transition={200}
+                  />
+                </Pressable>
               ) : (
                 <View className="w-full h-40 items-center justify-center bg-surface">
                   <Ionicons
@@ -148,15 +155,23 @@ export function BusinessDetailScreen({
             {/* ── Profile strip ─────────────────────────────── */}
             <View className="px-4 -mt-9">
               <View className="items-end">
-                <Avatar size="lg" className="border-2 border-background">
-                  {data.profileImageUrl ? (
-                    <Avatar.Image
-                      source={{ uri: getImageUrl(data.profileImageUrl)! }}
-                    />
-                  ) : (
-                    <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
-                  )}
-                </Avatar>
+                <Pressable
+                  onPress={() =>
+                    data.profileImageUrl &&
+                    setPreviewUri(getImageUrl(data.profileImageUrl)!)
+                  }
+                  accessibilityLabel="عرض الصورة الشخصية"
+                >
+                  <Avatar size="lg" className="border-2 border-background">
+                    {data.profileImageUrl ? (
+                      <Avatar.Image
+                        source={{ uri: getImageUrl(data.profileImageUrl)! }}
+                      />
+                    ) : (
+                      <Avatar.Fallback>{nameInitial(data.name)}</Avatar.Fallback>
+                    )}
+                  </Avatar>
+                </Pressable>
               </View>
 
               <View className="flex-row-reverse items-start justify-between pt-2">
@@ -333,6 +348,14 @@ export function BusinessDetailScreen({
           onSubmit={handleSubmitReview}
         />
       </ScreenWrapper>
+
+      {/* ── Image preview ── */}
+      <ImagePreviewModal
+        uri={previewUri}
+        isOpen={!!previewUri}
+        onClose={() => setPreviewUri(null)}
+        alt={data?.name}
+      />
     </View>
   );
 }
